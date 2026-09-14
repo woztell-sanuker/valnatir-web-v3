@@ -1389,6 +1389,14 @@ function initReviewMode() {
     const pageName = pathParts[pathParts.length - 1] || 'index.html';
     const parentContext = el.closest('[data-dropdown]') ? `Dropdown: ${el.closest('[data-dropdown]').getAttribute('data-dropdown')}` : (el.closest('header') ? 'Header' : 'Contenido');
 
+    let defaultCat = 'Tono Editorial / Copywriting';
+    const lowerPage = pageName.toLowerCase();
+    if (lowerPage.includes('compliance') || lowerPage.includes('legal')) {
+      defaultCat = 'Compliance / Legal';
+    } else if (lowerPage.includes('pricing') || lowerPage.includes('canales') || lowerPage.includes('partner') || lowerPage.includes('enterprise')) {
+      defaultCat = 'Claridad Comercial / C-Level';
+    }
+
     const backdrop = document.createElement('div');
     backdrop.id = 'valnatir-modal-backdrop';
     backdrop.innerHTML = `
@@ -1400,16 +1408,12 @@ function initReviewMode() {
         
         <div style="display:flex; gap:12px; margin-top:4px;">
           <div style="flex:1;">
-            <span class="v-label">👤 Revisor / Usuario (Grupo de Control)</span>
+            <span class="v-label">👤 Usuario</span>
             <input class="v-input" id="v-input-user" value="${escapeHtml(getReviewerName())}" placeholder="Nombre / Email" />
           </div>
           <div style="width:140px;">
             <span class="v-label">Situación</span>
-            <select class="v-select" id="v-input-status">
-              <option value="Plan" selected>Plan</option>
-              <option value="Wip">Wip</option>
-              <option value="Closed">Closed</option>
-            </select>
+            <input class="v-input" id="v-input-status" value="Plan" readonly disabled style="opacity: 0.65; cursor: not-allowed; background: rgba(255,255,255,0.05); font-weight: 600; text-align: center;" />
           </div>
         </div>
 
@@ -1420,13 +1424,7 @@ function initReviewMode() {
         <textarea class="v-input" id="v-input-prop" rows="3" placeholder="Si tienes una redacción alternativa, escríbela aquí...">${escapeHtml(textOriginal)}</textarea>
 
         <span class="v-label">Categoría del Feedback</span>
-        <select class="v-select" id="v-input-cat">
-          <option value="Tono Editorial / Copywriting">Tono Editorial / Copywriting</option>
-          <option value="Compliance / Legal">Compliance / Legal / Precisión Normativa</option>
-          <option value="Claridad Comercial / C-Level">Claridad Comercial / C-Level</option>
-          <option value="Diseño / UI / Layout">Diseño / UI / Layout</option>
-          <option value="Otro">Otro / Sugerencia General</option>
-        </select>
+        <input class="v-input" id="v-input-cat" value="${defaultCat}" readonly disabled style="opacity: 0.65; cursor: not-allowed; background: rgba(255,255,255,0.05); font-weight: 600;" />
 
         <span class="v-label">Comentario o Justificación</span>
         <textarea class="v-input" id="v-input-comm" rows="2" placeholder="Explica brevemente por qué sugieres este cambio..."></textarea>
@@ -1521,15 +1519,16 @@ function initReviewMode() {
     md += `* **Fecha**: ${new Date().toLocaleString()}\n`;
     md += `* **Revisor Predeterminado**: ${getReviewerName()}\n`;
     md += `* **Total Notas**: ${notes.length}\n\n`;
-    md += `| Nº | Revisor | Situación | Página | Contexto | Categoría | Texto Original | Propuesta / Comentario | Observaciones |\n`;
-    md += `|:---|:---|:---|:---|:---|:---|:---|:---|:---|\n`;
+    md += `| Nº | Fecha / Hora | User | Página | Contexto | Categoría | Texto Original | Propuesta / Comentario | Situación | Resolución |\n`;
+    md += `|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|\n`;
     notes.forEach((n, idx) => {
       const user = n.usuario || DEFAULT_REVIEWER;
       const sit = n.situacion || 'Plan';
+      const fecha = n.fecha ? new Date(n.fecha).toLocaleString('es-ES') : '-';
       const prop = n.texto_propuesto ? `**Prop:** "${n.texto_propuesto}"<br>` : '';
       const comm = `*Nota:* ${n.comentario}`;
       const obs = n.resolucion || '-';
-      md += `| ${idx+1} | ${user.replace(/\|/g, '\\|')} | **${sit}** | \`${n.pagina}\` | ${n.contexto} | ${n.categoria} | "${n.texto_original.replace(/\|/g, '\\|')}" | ${(prop + comm).replace(/\|/g, '\\|')} | ${obs.replace(/\|/g, '\\|')} |\n`;
+      md += `| ${idx+1} | ${fecha} | ${user.replace(/\|/g, '\\|')} | \`${n.pagina}\` | ${n.contexto} | ${n.categoria} | "${n.texto_original.replace(/\|/g, '\\|')}" | ${(prop + comm).replace(/\|/g, '\\|')} | **${sit}** | ${obs.replace(/\|/g, '\\|')} |\n`;
     });
 
     navigator.clipboard.writeText(md).then(() => {
