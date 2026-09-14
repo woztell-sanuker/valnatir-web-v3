@@ -1,0 +1,10 @@
+VALNATIR - Adaptación del logotipo MCCP
+
+8 SVG vectoriales y 8 PNG transparentes a escala 2x.
+5 logotipos adaptados: horizontal degradado, horizontal verde, horizontal morado, vertical degradado y vertical verde.
+3 isotipos originales conservados sin cambios gráficos.
+
+Tipografía reconstruida con DIN Alternate Bold, inferida por comparación de trazados. Compresión horizontal 96,85%, altura de mayúsculas aproximadamente 113,91 unidades y espaciado ajustado a la referencia.
+Los textos están convertidos en curvas: no requieren instalar fuentes.
+Se mantienen colores y geometría de isotipos de los SVG, y la altura de sus lienzos. Se amplía el ancho para VALNATIR. En vertical el isotipo se desplaza horizontalmente con el crecimiento del lienzo.
+Los SVG son vectoriales y escalables sin pérdida de resolución. Los originales MCCP no se han modificado.
