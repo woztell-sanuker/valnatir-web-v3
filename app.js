@@ -822,34 +822,47 @@ function initReviewMode() {
     updateBadge();
   }
 
-  // Identidad del revisor (Grupo de Control)
-  const DEFAULT_REVIEWER = 'Jose / jose.perez@almawolf.com';
+  // Identidad del usuario / revisor
   function getReviewerName() {
-    return localStorage.getItem('valnatir_reviewer_name') || DEFAULT_REVIEWER;
+    try {
+      const confirmed = (localStorage.getItem('valnatir_user_identity') || '').trim();
+      if (confirmed) return confirmed;
+      const legacy = (localStorage.getItem('valnatir_reviewer_name') || '').trim();
+      if (legacy && legacy !== 'Jose / jose.perez@almawolf.com') return legacy;
+    } catch(e) {}
+    return '';
   }
+
   function setReviewerName(name) {
     if (name && name.trim()) {
-      localStorage.setItem('valnatir_reviewer_name', name.trim());
+      const clean = name.trim();
+      try {
+        localStorage.setItem('valnatir_user_identity', clean);
+        localStorage.setItem('valnatir_reviewer_name', clean);
+        localStorage.setItem('valnatir_reviewer_prompted', 'true');
+      } catch(e) {}
     }
   }
 
-  function ensureReviewerSetup() {
+  function ensureReviewerSetup(force) {
     try {
-      const alreadyPrompted = localStorage.getItem('valnatir_reviewer_prompted');
-      if (!alreadyPrompted) {
-        localStorage.setItem('valnatir_reviewer_prompted', 'true');
-        const existing = localStorage.getItem('valnatir_reviewer_name') || DEFAULT_REVIEWER;
+      let current = (localStorage.getItem('valnatir_user_identity') || '').trim();
+      if (!current || force) {
+        const legacy = (localStorage.getItem('valnatir_reviewer_name') || '').trim();
+        const initialVal = (legacy && legacy !== 'Jose / jose.perez@almawolf.com') ? legacy : '';
         const entered = prompt(
-          '¡Bienvenido al Modo Review!\n\nIntroduce tu Nombre / Email para el Grupo de Control de Feedback:\n(Solo te lo pediremos esta 1ª vez)',
-          existing
+          '¡Bienvenido al Modo Review de VALNATIR!\n\nIntroduce tu Nombre / Email (ej. Enrique / enrique.barcos@almawolf.com):\n(Solo se te pedirá esta primera vez)',
+          initialVal
         );
-        if (entered !== null && entered.trim()) {
-          localStorage.setItem('valnatir_reviewer_name', entered.trim());
-        } else {
-          localStorage.setItem('valnatir_reviewer_name', existing);
+        if (entered && entered.trim()) {
+          setReviewerName(entered.trim());
+          return entered.trim();
         }
       }
-    } catch(e) {}
+      return current;
+    } catch(e) {
+      return '';
+    }
   }
 
   // Estado del Inspector: 'publish' (Navegación normal) | 'inspect' (Modo Comentarios)
@@ -1382,6 +1395,10 @@ function initReviewMode() {
       defaultCat = 'Claridad Comercial / C-Level';
     }
 
+    if (!getReviewerName()) {
+      ensureReviewerSetup();
+    }
+
     const backdrop = document.createElement('div');
     backdrop.id = 'valnatir-modal-backdrop';
     backdrop.innerHTML = `
@@ -1394,7 +1411,7 @@ function initReviewMode() {
         <div style="display:flex; gap:12px; margin-top:4px;">
           <div style="flex:1;">
             <span class="v-label">👤 Usuario</span>
-            <input class="v-input" id="v-input-user" value="${escapeHtml(getReviewerName())}" placeholder="Nombre / Email" />
+            <input class="v-input" id="v-input-user" value="${escapeHtml(getReviewerName())}" placeholder="Tu Nombre / Email (ej. Enrique / enrique.barcos@almawolf.com)" />
           </div>
           <div style="width:140px;">
             <span class="v-label">Situación</span>
@@ -1407,9 +1424,6 @@ function initReviewMode() {
 
         <span class="v-label">Tu Propuesta de Texto (Opcional)</span>
         <textarea class="v-input" id="v-input-prop" rows="3" placeholder="Si tienes una redacción alternativa, escríbela aquí...">${escapeHtml(textOriginal)}</textarea>
-
-        <span class="v-label">Categoría del Feedback</span>
-        <input class="v-input" id="v-input-cat" value="${defaultCat}" readonly disabled style="opacity: 0.65; cursor: not-allowed; background: rgba(255,255,255,0.05); font-weight: 600;" />
 
         <span class="v-label">Comentario o Justificación</span>
         <textarea class="v-input" id="v-input-comm" rows="2" placeholder="Explica brevemente por qué sugieres este cambio..."></textarea>
@@ -1431,14 +1445,19 @@ function initReviewMode() {
     });
 
     document.getElementById('v-save-modal').addEventListener('click', () => {
-      const reviewer = document.getElementById('v-input-user').value.trim() || getReviewerName();
+      const reviewer = (document.getElementById('v-input-user')?.value || getReviewerName()).trim();
+      if (!reviewer) {
+        alert('Por favor, indica tu Nombre o Email en el campo Usuario antes de guardar.');
+        document.getElementById('v-input-user')?.focus();
+        return;
+      }
       setReviewerName(reviewer);
 
-      const status = document.getElementById('v-input-status').value || 'Plan';
-      const resol = document.getElementById('v-input-resol').value.trim();
-      const propText = document.getElementById('v-input-prop').value.trim();
-      const cat = document.getElementById('v-input-cat').value;
-      const comm = document.getElementById('v-input-comm').value.trim();
+      const status = 'Plan';
+      const resol = (document.getElementById('v-input-resol')?.value || '').trim();
+      const propText = (document.getElementById('v-input-prop')?.value || '').trim();
+      const cat = defaultCat;
+      const comm = (document.getElementById('v-input-comm')?.value || '').trim();
 
       const newNote = {
         id: 'NOTE_' + Date.now(),
@@ -1507,7 +1526,7 @@ function initReviewMode() {
     md += `| Nº | Fecha / Hora | User | Página | Contexto | Categoría | Texto Original | Propuesta / Comentario | Situación | Resolución |\n`;
     md += `|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|\n`;
     notes.forEach((n, idx) => {
-      const user = n.usuario || DEFAULT_REVIEWER;
+      const user = n.usuario || getReviewerName() || 'Usuario';
       const sit = n.situacion || 'Plan';
       const fecha = n.fecha ? new Date(n.fecha).toLocaleString('es-ES') : '-';
       const prop = n.texto_propuesto ? `**Prop:** "${n.texto_propuesto}"<br>` : '';
