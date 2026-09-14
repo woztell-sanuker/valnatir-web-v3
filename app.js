@@ -1240,12 +1240,12 @@ function initReviewMode() {
     pill.innerHTML = `<span>💬 Modo Review</span><span class="v-pill-key">⌥C</span>`;
     pill.title = 'Activar Modo Review y Feedback (Opción + C en Mac / Alt + C en Windows)';
     pill.addEventListener('click', () => {
-      activateReview(true);
+      activateReview(true, 'publish');
     });
     document.body.appendChild(pill);
   }
 
-  function activateReview(active) {
+  function activateReview(active, initialMode) {
     isReviewActive = !!active;
     const dock = document.getElementById('valnatir-dock');
     const pill = document.getElementById('valnatir-pill');
@@ -1254,7 +1254,7 @@ function initReviewMode() {
       ensureReviewerSetup();
       if (dock) dock.style.display = 'flex';
       if (pill) pill.style.display = 'none';
-      setMode('inspect');
+      setMode(initialMode || 'publish', true);
     } else {
       try { localStorage.removeItem('valnatir_review_active'); } catch(e) {}
       if (dock) dock.style.display = 'none';
@@ -1553,7 +1553,7 @@ function initReviewMode() {
   setupInspector();
 
   if (isReviewUrl || isStoredActive) {
-    activateReview(true);
+    activateReview(true, 'publish');
   } else {
     activateReview(false);
   }
