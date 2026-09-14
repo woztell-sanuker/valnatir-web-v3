@@ -1,5 +1,5 @@
 /* ==========================================================================
-   VARNATIR · Design System v5.0 — Official Corporate Visual Identity
+   VALNATIR · Design System v5.0 — Official Corporate Visual Identity
    100% Funcional · 100% Pixel Perfect · Cero Desbordes
    ========================================================================== */
 
@@ -310,7 +310,7 @@ button {
   display: inline-block;
   width: 30px;
   height: 26px;
-  background: url('assets/brand/varnatir_isotipo.svg') no-repeat center / contain;
+  background: url('assets/brand/valnatir_isotipo.svg') no-repeat center / contain;
   flex-shrink: 0;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   filter: drop-shadow(0 2px 10px rgba(24, 83, 89, 0.45));
@@ -3512,6 +3512,7 @@ div[id].section-container,
 .legend-dot.external {
   background: #EF4444;
 }
+.legend-dot.valnatir,
 .legend-dot.varnatir {
   background: var(--accent);
   box-shadow: 0 0 8px var(--accent);

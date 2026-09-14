@@ -1,5 +1,5 @@
 /* ==========================================================================
-   VARNATIR · Lógica Interactiva y Micro-interacciones de Alto Calibre (Estilo WAM)
+   VALNATIR · Lógica Interactiva y Micro-interacciones de Alto Calibre (Estilo WAM)
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -323,7 +323,7 @@ function initLangSwitcher() {
 
     if (enBtn) {
       enBtn.addEventListener('click', (e) => {
-        localStorage.setItem('varnatir_lang', 'en');
+        localStorage.setItem('valnatir_lang', 'en');
         if (!isSpanish) {
           e.preventDefault();
           return;
@@ -341,7 +341,7 @@ function initLangSwitcher() {
 
     if (esBtn) {
       esBtn.addEventListener('click', (e) => {
-        localStorage.setItem('varnatir_lang', 'es');
+        localStorage.setItem('valnatir_lang', 'es');
         if (isSpanish) {
           e.preventDefault();
           return;
@@ -366,23 +366,23 @@ function initLangSwitcher() {
    6. Comparativa Interactiva (Control de Vuelo vs. Caja Negra)
    -------------------------------------------------------------------------- */
 function toggleComparison(type) {
-  const tabVarnatir = document.getElementById('tab-varnatir');
+  const tabValnatir = document.getElementById('tab-valnatir') || document.getElementById('tab-varnatir');
   const tabLegacy = document.getElementById('tab-legacy');
-  const panelVarnatir = document.getElementById('panel-varnatir');
+  const panelValnatir = document.getElementById('panel-valnatir') || document.getElementById('panel-varnatir');
   const panelLegacy = document.getElementById('panel-legacy');
 
-  if (!tabVarnatir || !tabLegacy || !panelVarnatir || !panelLegacy) return;
+  if (!tabValnatir || !tabLegacy || !panelValnatir || !panelLegacy) return;
 
-  if (type === 'varnatir') {
-    tabVarnatir.classList.add('active');
+  if (type === 'valnatir' || type === 'varnatir') {
+    tabValnatir.classList.add('active');
     tabLegacy.classList.remove('active');
-    panelVarnatir.classList.add('active');
+    panelValnatir.classList.add('active');
     panelLegacy.classList.remove('active');
   } else {
     tabLegacy.classList.add('active');
-    tabVarnatir.classList.remove('active');
+    tabValnatir.classList.remove('active');
     panelLegacy.classList.add('active');
-    panelVarnatir.classList.remove('active');
+    panelValnatir.classList.remove('active');
   }
 }
 window.toggleComparison = toggleComparison;
@@ -577,8 +577,8 @@ function handleFormSubmit(e) {
           </h3>
           <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 24px;">
             ${isSpanish 
-              ? 'Un arquitecto de soluciones de VARNATIR contactará contigo en menos de 24 horas laborables para coordinar el despliegue del sandbox en 48 horas.'
-              : 'A VARNATIR solutions architect will reach out within 24 business hours to coordinate your 48-hour pilot sandbox deployment.'}
+              ? 'Un arquitecto de soluciones de VALNATIR contactará contigo en menos de 24 horas laborables para coordinar el despliegue del sandbox en 48 horas.'
+              : 'A VALNATIR solutions architect will reach out within 24 business hours to coordinate your 48-hour pilot sandbox deployment.'}
           </p>
           <button class="btn btn-primary" onclick="window.closeModal()">
             ${isSpanish ? 'Cerrar ventana' : 'Close window'}
@@ -758,7 +758,7 @@ function initReviewMode() {
 
   let isStoredActive = false;
   try {
-    isStoredActive = localStorage.getItem('varnatir_review_active') === 'true';
+    isStoredActive = (localStorage.getItem('valnatir_review_active') || localStorage.getItem('varnatir_review_active')) === 'true';
   } catch(e) {}
 
   // Atajo de teclado global Ctrl+Shift+R / Cmd+Shift+R para activar/desactivar
@@ -774,7 +774,7 @@ function initReviewMode() {
 
   // Activar y persistir para navegación entre páginas
   try {
-    localStorage.setItem('varnatir_review_active', 'true');
+    localStorage.setItem('valnatir_review_active', 'true');
   } catch(e) {}
 
   injectReviewStyles();
@@ -784,12 +784,12 @@ function initReviewMode() {
   function toggleReview(activate) {
     try {
       if (activate) {
-        localStorage.setItem('varnatir_review_active', 'true');
+        localStorage.setItem('valnatir_review_active', 'true');
         const url = new URL(window.location.href);
         url.searchParams.set('mode', 'review');
         window.location.href = url.href;
       } else {
-        localStorage.removeItem('varnatir_review_active');
+        localStorage.removeItem('valnatir_review_active');
         const url = new URL(window.location.href);
         url.searchParams.delete('mode');
         url.searchParams.delete('review');
@@ -802,17 +802,18 @@ function initReviewMode() {
   }
 
   
-  // Sincronización con Google Sheets (VARNATIR Web Review)
+  // Sincronización con Google Sheets (VALNATIR Web Review)
   const DEFAULT_SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbwM0tLiFtuWYaE84ZNZEI3qZXJ3vwUGoB1xY9MASd2zagPfao5xrkYzBWkjvh0rlLFQMw/exec';
 
   function getSheetsWebhookUrl() {
-    return localStorage.getItem('varnatir_sheets_webhook') || DEFAULT_SHEETS_WEBHOOK;
+    return localStorage.getItem('valnatir_sheets_webhook') || localStorage.getItem('varnatir_sheets_webhook') || DEFAULT_SHEETS_WEBHOOK;
   }
 
   function setSheetsWebhookUrl(url) {
     if (url) {
-      localStorage.setItem('varnatir_sheets_webhook', url.trim());
+      localStorage.setItem('valnatir_sheets_webhook', url.trim());
     } else {
+      localStorage.removeItem('valnatir_sheets_webhook');
       localStorage.removeItem('varnatir_sheets_webhook');
     }
   }
@@ -839,7 +840,7 @@ function initReviewMode() {
 
   function getNotes() {
     try {
-      return JSON.parse(localStorage.getItem('varnatir_patchnotes') || '[]');
+      return JSON.parse(localStorage.getItem('valnatir_patchnotes') || localStorage.getItem('varnatir_patchnotes') || '[]');
     } catch(e) {
       return [];
     }
@@ -847,28 +848,28 @@ function initReviewMode() {
 
   function saveNotes(notes) {
     try {
-      localStorage.setItem('varnatir_patchnotes', JSON.stringify(notes));
+      localStorage.setItem('valnatir_patchnotes', JSON.stringify(notes));
     } catch(e) {}
     updateBadge();
   }
 
   function injectReviewStyles() {
-    if (document.getElementById('varnatir-review-styles')) return;
+    if (document.getElementById('valnatir-review-styles')) return;
     const style = document.createElement('style');
-    style.id = 'varnatir-review-styles';
+    style.id = 'valnatir-review-styles';
     style.textContent = `
-      .varnatir-review-hover {
+      .valnatir-review-hover {
         outline: 2px dashed #5FD3B8 !important;
         outline-offset: 3px !important;
         cursor: crosshair !important;
         background-color: rgba(95, 211, 184, 0.10) !important;
         transition: outline 0.15s ease, background-color 0.15s ease;
       }
-      .varnatir-has-note {
+      .valnatir-has-note {
         border-bottom: 2px solid #5FD3B8 !important;
         background-color: rgba(95, 211, 184, 0.05) !important;
       }
-      #varnatir-dock {
+      #valnatir-dock {
         position: fixed;
         bottom: 24px;
         right: 24px;
@@ -912,7 +913,7 @@ function initReviewMode() {
         50% { transform: scale(1.15); opacity: 1; }
         100% { transform: scale(0.95); opacity: 0.8; }
       }
-      #varnatir-dock-badge {
+      #valnatir-dock-badge {
         background: rgba(95, 211, 184, 0.15);
         color: #5FD3B8;
         font-weight: 700;
@@ -950,7 +951,7 @@ function initReviewMode() {
         color: #F87171;
       }
       /* Modal de Feedback */
-      #varnatir-modal-backdrop {
+      #valnatir-modal-backdrop {
         position: fixed;
         inset: 0;
         background: rgba(5, 8, 14, 0.80);
@@ -962,7 +963,7 @@ function initReviewMode() {
         justify-content: center;
         padding: 20px;
       }
-      #varnatir-modal {
+      #valnatir-modal {
         background: #111620;
         border: 1px solid rgba(95, 211, 184, 0.4);
         border-radius: 18px;
@@ -979,7 +980,7 @@ function initReviewMode() {
         from { opacity: 0; transform: translateY(16px); }
         to { opacity: 1; transform: translateY(0); }
       }
-      #varnatir-modal h3 {
+      #valnatir-modal h3 {
         margin: 0 0 10px 0;
         font-size: 18px;
         color: #5FD3B8;
@@ -1068,16 +1069,16 @@ function initReviewMode() {
   }
 
   function createReviewDock() {
-    if (document.getElementById('varnatir-dock')) return;
+    if (document.getElementById('valnatir-dock')) return;
 
     const dock = document.createElement('div');
-    dock.id = 'varnatir-dock';
+    dock.id = 'valnatir-dock';
     dock.innerHTML = `
       <div class="v-dock-status">
         <span class="v-status-dot"></span>
         <span>Modo Review</span>
       </div>
-      <span id="varnatir-dock-badge">0 notas</span>
+      <span id="valnatir-dock-badge">0 notas</span>
       <button class="v-dock-btn" id="v-btn-sheets" title="Vincular con Google Sheets">📊 Sheets</button>
       <button class="v-dock-btn" id="v-btn-export">Descargar JSON</button>
       <button class="v-dock-btn" id="v-btn-copy">Copiar Markdown</button>
@@ -1102,7 +1103,7 @@ function initReviewMode() {
 
   function updateBadge() {
     const notes = getNotes();
-    const badge = document.getElementById('varnatir-dock-badge');
+    const badge = document.getElementById('valnatir-dock-badge');
     if (badge) {
       badge.textContent = `${notes.length} nota${notes.length === 1 ? '' : 's'}`;
     }
@@ -1112,27 +1113,27 @@ function initReviewMode() {
 
   function setupInspector() {
     document.addEventListener('mouseover', (e) => {
-      if (e.target.closest('#varnatir-dock') || e.target.closest('#varnatir-modal-backdrop')) return;
+      if (e.target.closest('#valnatir-dock') || e.target.closest('#valnatir-modal-backdrop')) return;
 
       const target = getInspectableElement(e.target);
       if (target) {
         if (currentHovered && currentHovered !== target) {
-          currentHovered.classList.remove('varnatir-review-hover');
+          currentHovered.classList.remove('valnatir-review-hover');
         }
         currentHovered = target;
-        currentHovered.classList.add('varnatir-review-hover');
+        currentHovered.classList.add('valnatir-review-hover');
       }
     }, true);
 
     document.addEventListener('mouseout', (e) => {
       if (currentHovered && !currentHovered.contains(e.relatedTarget)) {
-        currentHovered.classList.remove('varnatir-review-hover');
+        currentHovered.classList.remove('valnatir-review-hover');
         currentHovered = null;
       }
     }, true);
 
     document.addEventListener('click', (e) => {
-      if (e.target.closest('#varnatir-dock') || e.target.closest('#varnatir-modal-backdrop')) return;
+      if (e.target.closest('#valnatir-dock') || e.target.closest('#valnatir-modal-backdrop')) return;
 
       const target = getInspectableElement(e.target);
       if (target) {
@@ -1154,7 +1155,7 @@ function initReviewMode() {
   }
 
   function openModal(el) {
-    const existing = document.getElementById('varnatir-modal-backdrop');
+    const existing = document.getElementById('valnatir-modal-backdrop');
     if (existing) existing.remove();
 
     const textOriginal = (el.innerText || '').trim();
@@ -1164,9 +1165,9 @@ function initReviewMode() {
     const parentContext = el.closest('[data-dropdown]') ? `Dropdown: ${el.closest('[data-dropdown]').getAttribute('data-dropdown')}` : (el.closest('header') ? 'Header' : 'Contenido');
 
     const backdrop = document.createElement('div');
-    backdrop.id = 'varnatir-modal-backdrop';
+    backdrop.id = 'valnatir-modal-backdrop';
     backdrop.innerHTML = `
-      <div id="varnatir-modal">
+      <div id="valnatir-modal">
         <h3>
           <span>📝 Sugerir Cambio / Nota de Feedback</span>
           <span class="v-meta-tag">${pageName} · &lt;${tagName}&gt;</span>
@@ -1224,7 +1225,7 @@ function initReviewMode() {
       notes.push(newNote);
       saveNotes(notes);
 
-      el.classList.add('varnatir-has-note');
+      el.classList.add('valnatir-has-note');
       backdrop.remove();
 
       // Enviar a Google Sheets si hay webhook configurado
@@ -1241,7 +1242,7 @@ function initReviewMode() {
       return;
     }
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
-      proyecto: "VARNATIR / MCCP Web - Patchnotes",
+      proyecto: "VALNATIR / MCCP Web - Patchnotes",
       version_base: "v3",
       fecha_exportacion: new Date().toISOString(),
       total_notas: notes.length,
@@ -1250,7 +1251,7 @@ function initReviewMode() {
 
     const a = document.createElement('a');
     a.href = dataStr;
-    a.download = `varnatir_patchnotes_${Date.now()}.json`;
+    a.download = `valnatir_patchnotes_${Date.now()}.json`;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -1262,7 +1263,7 @@ function initReviewMode() {
       alert('Aún no has registrado ninguna nota.');
       return;
     }
-    let md = `# Patchnotes y Feedback Editorial · VARNATIR\n\n`;
+    let md = `# Patchnotes y Feedback Editorial · VALNATIR\n\n`;
     md += `* **Fecha**: ${new Date().toLocaleString()}\n`;
     md += `* **Total Notas**: ${notes.length}\n\n`;
     md += `| Nº | Página | Contexto | Categoría | Texto Original | Propuesta / Comentario |\n`;

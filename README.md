@@ -1,9 +1,9 @@
-# VARNATIR Web v3
+# VALNATIR Web v3
 
 > **Productive AI. Governed Data.**  
 > *Govern the conversation, not the channel.*
 
-Official web platform for **VARNATIR**, the enterprise-grade conversational flight control platform for regulated customer communications.
+Official web platform for **VALNATIR**, the enterprise-grade conversational flight control platform for regulated customer communications.
 
 ## 🚀 Key Highlights
 
