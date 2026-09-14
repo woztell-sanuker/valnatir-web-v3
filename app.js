@@ -366,14 +366,14 @@ function initLangSwitcher() {
    6. Comparativa Interactiva (Control de Vuelo vs. Caja Negra)
    -------------------------------------------------------------------------- */
 function toggleComparison(type) {
-  const tabValnatir = document.getElementById('tab-valnatir') || document.getElementById('tab-varnatir');
+  const tabValnatir = document.getElementById('tab-valnatir');
   const tabLegacy = document.getElementById('tab-legacy');
-  const panelValnatir = document.getElementById('panel-valnatir') || document.getElementById('panel-varnatir');
+  const panelValnatir = document.getElementById('panel-valnatir');
   const panelLegacy = document.getElementById('panel-legacy');
 
   if (!tabValnatir || !tabLegacy || !panelValnatir || !panelLegacy) return;
 
-  if (type === 'valnatir' || type === 'varnatir') {
+  if (type === 'valnatir') {
     tabValnatir.classList.add('active');
     tabLegacy.classList.remove('active');
     panelValnatir.classList.add('active');
@@ -758,7 +758,7 @@ function initReviewMode() {
 
   let isStoredActive = false;
   try {
-    isStoredActive = (localStorage.getItem('valnatir_review_active') || localStorage.getItem('varnatir_review_active')) === 'true';
+    isStoredActive = localStorage.getItem('valnatir_review_active') === 'true';
   } catch(e) {}
 
   // Atajo de teclado global Ctrl+Shift+R / Cmd+Shift+R para activar/desactivar
@@ -802,11 +802,11 @@ function initReviewMode() {
   }
 
   
-  // Sincronización con Google Sheets (VALNATIR Web Review)
-  const DEFAULT_SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbwM0tLiFtuWYaE84ZNZEI3qZXJ3vwUGoB1xY9MASd2zagPfao5xrkYzBWkjvh0rlLFQMw/exec';
+  // Sincronización con Google Sheets (VALNATIR Web Review - 10 Columnas)
+  const DEFAULT_SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbyfPTJ6LfG4sb6dEYT2yZ6MAUBc2fpt82q59BglAELJjUkUt4LYK0kVOCdPbMlyhpTG9w/exec';
 
   function getSheetsWebhookUrl() {
-    return localStorage.getItem('valnatir_sheets_webhook') || localStorage.getItem('varnatir_sheets_webhook') || DEFAULT_SHEETS_WEBHOOK;
+    return localStorage.getItem('valnatir_sheets_webhook') || DEFAULT_SHEETS_WEBHOOK;
   }
 
   function setSheetsWebhookUrl(url) {
@@ -814,7 +814,6 @@ function initReviewMode() {
       localStorage.setItem('valnatir_sheets_webhook', url.trim());
     } else {
       localStorage.removeItem('valnatir_sheets_webhook');
-      localStorage.removeItem('varnatir_sheets_webhook');
     }
   }
 
@@ -840,7 +839,7 @@ function initReviewMode() {
 
   function getNotes() {
     try {
-      return JSON.parse(localStorage.getItem('valnatir_patchnotes') || localStorage.getItem('varnatir_patchnotes') || '[]');
+      return JSON.parse(localStorage.getItem('valnatir_patchnotes') || '[]');
     } catch(e) {
       return [];
     }
@@ -852,6 +851,21 @@ function initReviewMode() {
     } catch(e) {}
     updateBadge();
   }
+
+  // Identidad del revisor (Grupo de Control)
+  const DEFAULT_REVIEWER = 'Jose / jose.perez@almawolf.com';
+  function getReviewerName() {
+    return localStorage.getItem('valnatir_reviewer_name') || DEFAULT_REVIEWER;
+  }
+  function setReviewerName(name) {
+    if (name && name.trim()) {
+      localStorage.setItem('valnatir_reviewer_name', name.trim());
+      updateReviewerDisplay();
+    }
+  }
+
+  // Estado del Inspector: 'publish' (Navegación normal) | 'inspect' (Modo Comentarios)
+  let currentReviewMode = 'publish';
 
   function injectReviewStyles() {
     if (document.getElementById('valnatir-review-styles')) return;
@@ -876,13 +890,13 @@ function initReviewMode() {
         z-index: 999999;
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
         background: rgba(14, 18, 26, 0.96);
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
         border: 1px solid rgba(95, 211, 184, 0.45);
         border-radius: 40px;
-        padding: 9px 18px;
+        padding: 8px 16px;
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         color: #F3F5F7;
@@ -898,12 +912,16 @@ function initReviewMode() {
         align-items: center;
         gap: 8px;
         font-weight: 600;
-        font-size: 13px;
+        font-size: 12px;
       }
       .v-status-dot {
         width: 10px;
         height: 10px;
         border-radius: 50%;
+        background: #64748B;
+        transition: all 0.25s ease;
+      }
+      .v-status-dot.active-inspect {
         background: #5FD3B8;
         box-shadow: 0 0 10px #5FD3B8;
         animation: v-pulse 2s infinite;
@@ -912,6 +930,45 @@ function initReviewMode() {
         0% { transform: scale(0.95); opacity: 0.8; }
         50% { transform: scale(1.15); opacity: 1; }
         100% { transform: scale(0.95); opacity: 0.8; }
+      }
+      .v-mode-switch {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+        padding: 2px;
+        gap: 2px;
+      }
+      .v-mode-tab {
+        background: transparent;
+        border: none;
+        color: #94A3B8;
+        padding: 5px 11px;
+        border-radius: 16px;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.18s ease;
+      }
+      .v-mode-tab.active {
+        background: #5FD3B8;
+        color: #0E121A;
+        box-shadow: 0 2px 8px rgba(95, 211, 184, 0.35);
+      }
+      .v-reviewer-btn {
+        background: rgba(95, 211, 184, 0.12) !important;
+        color: #5FD3B8 !important;
+        border-color: rgba(95, 211, 184, 0.3) !important;
+        font-size: 11px !important;
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .v-reviewer-btn:hover {
+        background: rgba(95, 211, 184, 0.25) !important;
+        color: #ffffff !important;
       }
       #valnatir-dock-badge {
         background: rgba(95, 211, 184, 0.15);
@@ -926,10 +983,10 @@ function initReviewMode() {
         background: rgba(255, 255, 255, 0.08);
         border: 1px solid rgba(255, 255, 255, 0.14);
         color: #F3F5F7;
-        padding: 6px 13px;
+        padding: 5px 11px;
         border-radius: 20px;
         cursor: pointer;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 600;
         transition: all 0.2s ease;
       }
@@ -968,11 +1025,11 @@ function initReviewMode() {
         border: 1px solid rgba(95, 211, 184, 0.4);
         border-radius: 18px;
         width: 100%;
-        max-width: 580px;
+        max-width: 620px;
         box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85);
         color: #F3F5F7;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        padding: 26px;
+        padding: 24px;
         box-sizing: border-box;
         animation: v-slide-up 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       }
@@ -981,8 +1038,8 @@ function initReviewMode() {
         to { opacity: 1; transform: translateY(0); }
       }
       #valnatir-modal h3 {
-        margin: 0 0 10px 0;
-        font-size: 18px;
+        margin: 0 0 12px 0;
+        font-size: 17px;
         color: #5FD3B8;
         display: flex;
         align-items: center;
@@ -1004,17 +1061,17 @@ function initReviewMode() {
         text-transform: uppercase;
         letter-spacing: 0.05em;
         color: #8C96A5;
-        margin: 14px 0 6px;
+        margin: 12px 0 5px;
       }
       .v-original-text {
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 8px;
-        padding: 10px 12px;
+        padding: 9px 12px;
         font-size: 13px;
         color: #CBD5E1;
         line-height: 1.45;
-        max-height: 90px;
+        max-height: 80px;
         overflow-y: auto;
       }
       .v-input, .v-select {
@@ -1025,7 +1082,7 @@ function initReviewMode() {
         border-radius: 8px;
         color: #F3F5F7;
         font-size: 13px;
-        padding: 10px 12px;
+        padding: 8px 11px;
         font-family: inherit;
       }
       .v-input:focus, .v-select:focus {
@@ -1037,10 +1094,10 @@ function initReviewMode() {
         display: flex;
         justify-content: flex-end;
         gap: 10px;
-        margin-top: 22px;
+        margin-top: 20px;
       }
       .v-btn {
-        padding: 9px 18px;
+        padding: 8px 16px;
         border-radius: 8px;
         font-size: 13px;
         font-weight: 600;
@@ -1075,9 +1132,14 @@ function initReviewMode() {
     dock.id = 'valnatir-dock';
     dock.innerHTML = `
       <div class="v-dock-status">
-        <span class="v-status-dot"></span>
-        <span>Modo Review</span>
+        <span class="v-status-dot" id="v-status-dot"></span>
+        <span id="v-status-label">Navegando</span>
       </div>
+      <div class="v-mode-switch">
+        <button class="v-mode-tab active" id="v-tab-publish" title="Navegar libremente por la web">🧭 Navegar</button>
+        <button class="v-mode-tab" id="v-tab-inspect" title="Activar modo comentarios / edición (Alt+C)">✍️ Comentar</button>
+      </div>
+      <button class="v-dock-btn v-reviewer-btn" id="v-btn-reviewer" title="Revisor actual del Grupo de Control (clic para cambiar)">👤 <span id="v-reviewer-display">${escapeHtml(getReviewerShort())}</span></button>
       <span id="valnatir-dock-badge">0 notas</span>
       <button class="v-dock-btn" id="v-btn-sheets" title="Vincular con Google Sheets">📊 Sheets</button>
       <button class="v-dock-btn" id="v-btn-export">Descargar JSON</button>
@@ -1087,6 +1149,27 @@ function initReviewMode() {
     document.body.appendChild(dock);
 
     updateBadge();
+
+    // Eventos de cambio de modo Navegar vs Comentar
+    document.getElementById('v-tab-publish').addEventListener('click', () => setMode('publish'));
+    document.getElementById('v-tab-inspect').addEventListener('click', () => setMode('inspect'));
+
+    // Atajo Alt + C / Option + C para alternar entre Navegar y Comentar
+    window.addEventListener('keydown', (e) => {
+      if (e.altKey && (e.code === 'KeyC' || e.key === 'ç' || e.key === 'Ç' || e.key.toLowerCase() === 'c')) {
+        e.preventDefault();
+        setMode(currentReviewMode === 'publish' ? 'inspect' : 'publish');
+      }
+    });
+
+    // Cambiar revisor
+    document.getElementById('v-btn-reviewer').addEventListener('click', () => {
+      const current = getReviewerName();
+      const entered = prompt('Introduce tu Nombre / Email para el Grupo de Control de Feedback:', current);
+      if (entered !== null && entered.trim()) {
+        setReviewerName(entered);
+      }
+    });
 
     document.getElementById('v-btn-sheets').addEventListener('click', () => {
       const current = getSheetsWebhookUrl();
@@ -1101,6 +1184,43 @@ function initReviewMode() {
     document.getElementById('v-btn-exit').addEventListener('click', () => toggleReview(false));
   }
 
+  function setMode(mode) {
+    currentReviewMode = mode;
+    const tabPub = document.getElementById('v-tab-publish');
+    const tabIns = document.getElementById('v-tab-inspect');
+    const dot = document.getElementById('v-status-dot');
+    const label = document.getElementById('v-status-label');
+
+    if (mode === 'inspect') {
+      if (tabIns) tabIns.classList.add('active');
+      if (tabPub) tabPub.classList.remove('active');
+      if (dot) dot.classList.add('active-inspect');
+      if (label) label.textContent = 'Modo Comentarios';
+    } else {
+      if (tabPub) tabPub.classList.add('active');
+      if (tabIns) tabIns.classList.remove('active');
+      if (dot) dot.classList.remove('active-inspect');
+      if (label) label.textContent = 'Navegando';
+      if (currentHovered) {
+        currentHovered.classList.remove('valnatir-review-hover');
+        currentHovered = null;
+      }
+    }
+  }
+
+  function getReviewerShort() {
+    const full = getReviewerName();
+    const parts = full.split(/[\/@]/);
+    return parts[0].trim();
+  }
+
+  function updateReviewerDisplay() {
+    const disp = document.getElementById('v-reviewer-display');
+    if (disp) {
+      disp.textContent = getReviewerShort();
+    }
+  }
+
   function updateBadge() {
     const notes = getNotes();
     const badge = document.getElementById('valnatir-dock-badge');
@@ -1113,6 +1233,7 @@ function initReviewMode() {
 
   function setupInspector() {
     document.addEventListener('mouseover', (e) => {
+      if (currentReviewMode !== 'inspect') return;
       if (e.target.closest('#valnatir-dock') || e.target.closest('#valnatir-modal-backdrop')) return;
 
       const target = getInspectableElement(e.target);
@@ -1126,6 +1247,7 @@ function initReviewMode() {
     }, true);
 
     document.addEventListener('mouseout', (e) => {
+      if (currentReviewMode !== 'inspect') return;
       if (currentHovered && !currentHovered.contains(e.relatedTarget)) {
         currentHovered.classList.remove('valnatir-review-hover');
         currentHovered = null;
@@ -1133,6 +1255,8 @@ function initReviewMode() {
     }, true);
 
     document.addEventListener('click', (e) => {
+      // Si estamos en modo navegación normal ('publish'), no interferimos: los enlaces y botones navegan limpiamente
+      if (currentReviewMode !== 'inspect') return;
       if (e.target.closest('#valnatir-dock') || e.target.closest('#valnatir-modal-backdrop')) return;
 
       const target = getInspectableElement(e.target);
@@ -1173,6 +1297,21 @@ function initReviewMode() {
           <span class="v-meta-tag">${pageName} · &lt;${tagName}&gt;</span>
         </h3>
         
+        <div style="display:flex; gap:12px; margin-top:4px;">
+          <div style="flex:1;">
+            <span class="v-label">👤 Revisor / Usuario (Grupo de Control)</span>
+            <input class="v-input" id="v-input-user" value="${escapeHtml(getReviewerName())}" placeholder="Nombre / Email" />
+          </div>
+          <div style="width:140px;">
+            <span class="v-label">Situación</span>
+            <select class="v-select" id="v-input-status">
+              <option value="Plan" selected>Plan</option>
+              <option value="Wip">Wip</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
+        </div>
+
         <span class="v-label">Texto Actual en la Web</span>
         <div class="v-original-text">${escapeHtml(textOriginal)}</div>
 
@@ -1191,6 +1330,9 @@ function initReviewMode() {
         <span class="v-label">Comentario o Justificación</span>
         <textarea class="v-input" id="v-input-comm" rows="2" placeholder="Explica brevemente por qué sugieres este cambio..."></textarea>
 
+        <span class="v-label">Resolución / Observaciones (Opcional)</span>
+        <input class="v-input" id="v-input-resol" placeholder="Notas de resolución u observaciones..." />
+
         <div class="v-btn-row">
           <button class="v-btn v-btn-secondary" id="v-cancel-modal">Cancelar</button>
           <button class="v-btn v-btn-primary" id="v-save-modal">Guardar Nota</button>
@@ -1205,6 +1347,11 @@ function initReviewMode() {
     });
 
     document.getElementById('v-save-modal').addEventListener('click', () => {
+      const reviewer = document.getElementById('v-input-user').value.trim() || getReviewerName();
+      setReviewerName(reviewer);
+
+      const status = document.getElementById('v-input-status').value || 'Plan';
+      const resol = document.getElementById('v-input-resol').value.trim();
       const propText = document.getElementById('v-input-prop').value.trim();
       const cat = document.getElementById('v-input-cat').value;
       const comm = document.getElementById('v-input-comm').value.trim();
@@ -1212,13 +1359,16 @@ function initReviewMode() {
       const newNote = {
         id: 'NOTE_' + Date.now(),
         fecha: new Date().toISOString(),
+        usuario: reviewer,
         pagina: pageName,
         contexto: parentContext,
         tag: tagName,
         texto_original: textOriginal,
         texto_propuesto: propText !== textOriginal ? propText : '',
         categoria: cat,
-        comentario: comm || 'Sin comentario adicional'
+        comentario: comm || 'Sin comentario adicional',
+        situacion: status,
+        resolucion: resol
       };
 
       const notes = getNotes();
@@ -1235,6 +1385,8 @@ function initReviewMode() {
     });
   }
 
+
+
   function exportJSON() {
     const notes = getNotes();
     if (notes.length === 0) {
@@ -1244,6 +1396,7 @@ function initReviewMode() {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
       proyecto: "VALNATIR / MCCP Web - Patchnotes",
       version_base: "v3",
+      revisor_predeterminado: getReviewerName(),
       fecha_exportacion: new Date().toISOString(),
       total_notas: notes.length,
       notas: notes
@@ -1265,13 +1418,17 @@ function initReviewMode() {
     }
     let md = `# Patchnotes y Feedback Editorial · VALNATIR\n\n`;
     md += `* **Fecha**: ${new Date().toLocaleString()}\n`;
+    md += `* **Revisor Predeterminado**: ${getReviewerName()}\n`;
     md += `* **Total Notas**: ${notes.length}\n\n`;
-    md += `| Nº | Página | Contexto | Categoría | Texto Original | Propuesta / Comentario |\n`;
-    md += `|:---|:---|:---|:---|:---|:---|\n`;
+    md += `| Nº | Revisor | Situación | Página | Contexto | Categoría | Texto Original | Propuesta / Comentario | Observaciones |\n`;
+    md += `|:---|:---|:---|:---|:---|:---|:---|:---|:---|\n`;
     notes.forEach((n, idx) => {
-      const prop = n.texto_propuesto ? `**Propuesta:** "${n.texto_propuesto}"<br>` : '';
+      const user = n.usuario || DEFAULT_REVIEWER;
+      const sit = n.situacion || 'Plan';
+      const prop = n.texto_propuesto ? `**Prop:** "${n.texto_propuesto}"<br>` : '';
       const comm = `*Nota:* ${n.comentario}`;
-      md += `| ${idx+1} | \`${n.pagina}\` | ${n.contexto} | ${n.categoria} | "${n.texto_original.replace(/\|/g, '\\|')}" | ${(prop + comm).replace(/\|/g, '\\|')} |\n`;
+      const obs = n.resolucion || '-';
+      md += `| ${idx+1} | ${user.replace(/\|/g, '\\|')} | **${sit}** | \`${n.pagina}\` | ${n.contexto} | ${n.categoria} | "${n.texto_original.replace(/\|/g, '\\|')}" | ${(prop + comm).replace(/\|/g, '\\|')} | ${obs.replace(/\|/g, '\\|')} |\n`;
     });
 
     navigator.clipboard.writeText(md).then(() => {
