@@ -2,6 +2,9 @@
 
 Bienvenido a la guía rápida de uso del **Modo Review de VALNATIR**. Esta herramienta permite al equipo y al grupo de control editorial revisar la web en vivo, seleccionar cualquier texto visualmente y proponer mejoras o correcciones que se registran de forma automática en la hoja compartida de Google Sheets.
 
+> **🔗 Enlace a la web para revisión:**  
+> [https://woztell-sanuker.github.io/valnatir-web-v3/index.html](https://woztell-sanuker.github.io/valnatir-web-v3/index.html)
+
 ---
 
 ## 🎯 1. ¿Para qué sirve el Modo Review?
