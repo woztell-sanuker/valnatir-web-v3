@@ -830,8 +830,26 @@ function initReviewMode() {
   function setReviewerName(name) {
     if (name && name.trim()) {
       localStorage.setItem('valnatir_reviewer_name', name.trim());
-      updateReviewerDisplay();
     }
+  }
+
+  function ensureReviewerSetup() {
+    try {
+      const alreadyPrompted = localStorage.getItem('valnatir_reviewer_prompted');
+      if (!alreadyPrompted) {
+        localStorage.setItem('valnatir_reviewer_prompted', 'true');
+        const existing = localStorage.getItem('valnatir_reviewer_name') || DEFAULT_REVIEWER;
+        const entered = prompt(
+          '¡Bienvenido al Modo Review!\n\nIntroduce tu Nombre / Email para el Grupo de Control de Feedback:\n(Solo te lo pediremos esta 1ª vez)',
+          existing
+        );
+        if (entered !== null && entered.trim()) {
+          localStorage.setItem('valnatir_reviewer_name', entered.trim());
+        } else {
+          localStorage.setItem('valnatir_reviewer_name', existing);
+        }
+      }
+    } catch(e) {}
   }
 
   // Estado del Inspector: 'publish' (Navegación normal) | 'inspect' (Modo Comentarios)
@@ -1168,7 +1186,6 @@ function initReviewMode() {
         <button class="v-mode-tab active" id="v-tab-publish" title="Navegar libremente por la web">🧭 Navegar</button>
         <button class="v-mode-tab" id="v-tab-inspect" title="Activar modo comentarios / edición (Alt+C)">✍️ Comentar</button>
       </div>
-      <button class="v-dock-btn v-reviewer-btn" id="v-btn-reviewer" title="Revisor actual del Grupo de Control (clic para cambiar)">👤 <span id="v-reviewer-display">${escapeHtml(getReviewerShort())}</span></button>
       <span id="valnatir-dock-badge">0 notas</span>
       <button class="v-dock-btn" id="v-btn-sheets" title="Vincular con Google Sheets">📊 Sheets</button>
       <button class="v-dock-btn" id="v-btn-export">Descargar JSON</button>
@@ -1182,15 +1199,6 @@ function initReviewMode() {
     // Eventos de cambio de modo Navegar vs Comentar
     document.getElementById('v-tab-publish').addEventListener('click', () => setMode('publish'));
     document.getElementById('v-tab-inspect').addEventListener('click', () => setMode('inspect'));
-
-    // Cambiar revisor
-    document.getElementById('v-btn-reviewer').addEventListener('click', () => {
-      const current = getReviewerName();
-      const entered = prompt('Introduce tu Nombre / Email para el Grupo de Control de Feedback:', current);
-      if (entered !== null && entered.trim()) {
-        setReviewerName(entered);
-      }
-    });
 
     document.getElementById('v-btn-sheets').addEventListener('click', () => {
       const current = getSheetsWebhookUrl();
@@ -1245,6 +1253,7 @@ function initReviewMode() {
     const pill = document.getElementById('valnatir-pill');
     if (isReviewActive) {
       try { localStorage.setItem('valnatir_review_active', 'true'); } catch(e) {}
+      ensureReviewerSetup();
       if (dock) dock.style.display = 'flex';
       if (pill) pill.style.display = 'none';
       setMode('inspect');
