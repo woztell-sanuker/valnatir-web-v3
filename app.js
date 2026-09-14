@@ -13,7 +13,9 @@ function bootstrapValnatir() {
     try {
       if (typeof fn === 'function') fn();
     } catch(err) {
-      console.warn('Init error in ' + (fn.name || 'anonymous'), err);
+      if (typeof console !== 'undefined' && console.warn) {
+        console.warn('Init error in ' + (fn.name || 'anonymous'), err);
+      }
     }
   });
 }
@@ -1205,18 +1207,24 @@ function initReviewMode() {
   }
 
   function showToast(msg) {
-    let toast = document.getElementById('valnatir-hud-toast');
-    if (!toast) {
-      toast = document.createElement('div');
-      toast.id = 'valnatir-hud-toast';
-      document.body.appendChild(toast);
-    }
-    toast.textContent = msg;
-    toast.classList.add('valnatir-toast-show');
-    clearTimeout(toast._timer);
-    toast._timer = setTimeout(() => {
-      toast.classList.remove('valnatir-toast-show');
-    }, 2200);
+    try {
+      let toast = document.getElementById('valnatir-hud-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'valnatir-hud-toast';
+        document.body.appendChild(toast);
+      }
+      toast.textContent = msg;
+      toast.classList.add('valnatir-toast-show');
+      if (toast._timer && typeof clearTimeout === 'function') {
+        clearTimeout(toast._timer);
+      }
+      if (typeof setTimeout === 'function') {
+        toast._timer = setTimeout(() => {
+          toast.classList.remove('valnatir-toast-show');
+        }, 2200);
+      }
+    } catch(e) {}
   }
 
   function createReviewPill() {
@@ -1524,5 +1532,17 @@ function initReviewMode() {
 
   function escapeHtml(str) {
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  // Arranque del sistema de Review y Feedback
+  injectReviewStyles();
+  createReviewPill();
+  createReviewDock();
+  setupInspector();
+
+  if (isReviewUrl || isStoredActive) {
+    activateReview(true);
+  } else {
+    activateReview(false);
   }
 }
