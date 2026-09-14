@@ -3512,8 +3512,7 @@ div[id].section-container,
 .legend-dot.external {
   background: #EF4444;
 }
-.legend-dot.valnatir,
-.legend-dot.varnatir {
+.legend-dot.valnatir {
   background: var(--accent);
   box-shadow: 0 0 8px var(--accent);
 }
