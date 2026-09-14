@@ -1187,9 +1187,6 @@ function initReviewMode() {
         <button class="v-mode-tab" id="v-tab-inspect" title="Activar modo comentarios / edición (Alt+C)">✍️ Comentar</button>
       </div>
       <span id="valnatir-dock-badge">0 notas</span>
-      <button class="v-dock-btn" id="v-btn-sheets" title="Vincular con Google Sheets">📊 Sheets</button>
-      <button class="v-dock-btn" id="v-btn-export">Descargar JSON</button>
-      <button class="v-dock-btn" id="v-btn-copy">Copiar Markdown</button>
       <button class="v-dock-exit" id="v-btn-exit" title="Salir de Modo Review">✕</button>
     `;
     document.body.appendChild(dock);
@@ -1199,18 +1196,6 @@ function initReviewMode() {
     // Eventos de cambio de modo Navegar vs Comentar
     document.getElementById('v-tab-publish').addEventListener('click', () => setMode('publish'));
     document.getElementById('v-tab-inspect').addEventListener('click', () => setMode('inspect'));
-
-    document.getElementById('v-btn-sheets').addEventListener('click', () => {
-      const current = getSheetsWebhookUrl();
-      const entered = prompt('Introduce la URL del Webhook de Google Apps Script para sincronizar con Google Sheets:\n(Ejemplo: https://script.google.com/macros/s/.../exec)', current);
-      if (entered !== null) {
-        setSheetsWebhookUrl(entered);
-        alert(entered ? '✅ Webhook de Google Sheets configurado. Las nuevas notas se enviarán automáticamente a la hoja.' : 'ℹ️ Sincronización con Google Sheets desactivada.');
-      }
-    });
-
-    document.getElementById('v-btn-export').addEventListener('click', exportJSON);
-    document.getElementById('v-btn-copy').addEventListener('click', copyMarkdown);
     document.getElementById('v-btn-exit').addEventListener('click', () => activateReview(false));
   }
 
