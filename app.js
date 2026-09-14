@@ -2,21 +2,27 @@
    VALNATIR · Lógica Interactiva y Micro-interacciones de Alto Calibre (Estilo WAM)
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
-  initCursor();
-  initHeaderScroll();
-  initScrollReveal();
-  initHeroReel();
-  initLangSwitcher();
-  initComparisonTabs();
-  initIndustryTabs();
-  initSwiper();
-  initModal();
-  initMobileMenu();
-  initFrameworkTabs();
-  initDropdowns();
-  initReviewMode();
-});
+function bootstrapValnatir() {
+  const fns = [
+    initCursor, initHeaderScroll, initScrollReveal, initHeroReel,
+    initLangSwitcher, initComparisonTabs, initIndustryTabs, initSwiper,
+    initModal, initMobileMenu, initFrameworkTabs, initDropdowns,
+    initReviewMode
+  ];
+  fns.forEach(fn => {
+    try {
+      if (typeof fn === 'function') fn();
+    } catch(err) {
+      console.warn('Init error in ' + (fn.name || 'anonymous'), err);
+    }
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootstrapValnatir);
+} else {
+  bootstrapValnatir();
+}
 
 /* --------------------------------------------------------------------------
    1. Custom Cursor (WAM Micro-interaction)
@@ -761,45 +767,7 @@ function initReviewMode() {
     isStoredActive = localStorage.getItem('valnatir_review_active') === 'true';
   } catch(e) {}
 
-  // Atajo de teclado global Ctrl+Shift+R / Cmd+Shift+R para activar/desactivar
-  window.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'r') {
-      toggleReview(!isStoredActive);
-    }
-  });
-
-  if (!isReviewUrl && !isStoredActive) {
-    return; // Modo inactivo para visitantes normales
-  }
-
-  // Activar y persistir para navegación entre páginas
-  try {
-    localStorage.setItem('valnatir_review_active', 'true');
-  } catch(e) {}
-
-  injectReviewStyles();
-  createReviewDock();
-  setupInspector();
-
-  function toggleReview(activate) {
-    try {
-      if (activate) {
-        localStorage.setItem('valnatir_review_active', 'true');
-        const url = new URL(window.location.href);
-        url.searchParams.set('mode', 'review');
-        window.location.href = url.href;
-      } else {
-        localStorage.removeItem('valnatir_review_active');
-        const url = new URL(window.location.href);
-        url.searchParams.delete('mode');
-        url.searchParams.delete('review');
-        url.searchParams.delete('feedback');
-        window.location.href = url.href;
-      }
-    } catch(e) {
-      window.location.reload();
-    }
-  }
+  let isReviewActive = false;
 
   
   // Sincronización con Google Sheets (VALNATIR Web Review - 10 Columnas)
@@ -882,6 +850,65 @@ function initReviewMode() {
       .valnatir-has-note {
         border-bottom: 2px solid #5FD3B8 !important;
         background-color: rgba(95, 211, 184, 0.05) !important;
+      }
+      #valnatir-pill {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 999999;
+        background: rgba(14, 18, 26, 0.94);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        color: #5FD3B8;
+        border: 1px solid rgba(95, 211, 184, 0.45);
+        border-radius: 30px;
+        padding: 9px 18px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+        transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+      #valnatir-pill:hover {
+        transform: translateY(-2px);
+        background: rgba(20, 26, 38, 0.98);
+        border-color: #5FD3B8;
+        color: #FFFFFF;
+      }
+      .v-pill-key {
+        font-size: 10px;
+        font-family: monospace;
+        background: rgba(255, 255, 255, 0.12);
+        padding: 2px 6px;
+        border-radius: 6px;
+        color: #94A3B8;
+      }
+      #valnatir-hud-toast {
+        position: fixed;
+        top: 32px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-20px);
+        background: rgba(14, 18, 26, 0.96);
+        color: #5FD3B8;
+        border: 1px solid rgba(95, 211, 184, 0.5);
+        padding: 10px 22px;
+        border-radius: 30px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+        z-index: 1000000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      #valnatir-hud-toast.valnatir-toast-show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
       }
       #valnatir-dock {
         position: fixed;
@@ -1154,14 +1181,6 @@ function initReviewMode() {
     document.getElementById('v-tab-publish').addEventListener('click', () => setMode('publish'));
     document.getElementById('v-tab-inspect').addEventListener('click', () => setMode('inspect'));
 
-    // Atajo Alt + C / Option + C para alternar entre Navegar y Comentar
-    window.addEventListener('keydown', (e) => {
-      if (e.altKey && (e.code === 'KeyC' || e.key === 'ç' || e.key === 'Ç' || e.key.toLowerCase() === 'c')) {
-        e.preventDefault();
-        setMode(currentReviewMode === 'publish' ? 'inspect' : 'publish');
-      }
-    });
-
     // Cambiar revisor
     document.getElementById('v-btn-reviewer').addEventListener('click', () => {
       const current = getReviewerName();
@@ -1179,12 +1198,58 @@ function initReviewMode() {
         alert(entered ? '✅ Webhook de Google Sheets configurado. Las nuevas notas se enviarán automáticamente a la hoja.' : 'ℹ️ Sincronización con Google Sheets desactivada.');
       }
     });
+
     document.getElementById('v-btn-export').addEventListener('click', exportJSON);
     document.getElementById('v-btn-copy').addEventListener('click', copyMarkdown);
-    document.getElementById('v-btn-exit').addEventListener('click', () => toggleReview(false));
+    document.getElementById('v-btn-exit').addEventListener('click', () => activateReview(false));
   }
 
-  function setMode(mode) {
+  function showToast(msg) {
+    let toast = document.getElementById('valnatir-hud-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'valnatir-hud-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.add('valnatir-toast-show');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => {
+      toast.classList.remove('valnatir-toast-show');
+    }, 2200);
+  }
+
+  function createReviewPill() {
+    if (document.getElementById('valnatir-pill')) return;
+    const pill = document.createElement('button');
+    pill.id = 'valnatir-pill';
+    pill.innerHTML = `<span>💬 Modo Review</span><span class="v-pill-key">⌥C</span>`;
+    pill.title = 'Activar Modo Review y Feedback (Opción + C en Mac / Alt + C en Windows)';
+    pill.addEventListener('click', () => {
+      activateReview(true);
+    });
+    document.body.appendChild(pill);
+  }
+
+  function activateReview(active) {
+    isReviewActive = !!active;
+    const dock = document.getElementById('valnatir-dock');
+    const pill = document.getElementById('valnatir-pill');
+    if (isReviewActive) {
+      try { localStorage.setItem('valnatir_review_active', 'true'); } catch(e) {}
+      if (dock) dock.style.display = 'flex';
+      if (pill) pill.style.display = 'none';
+      setMode('inspect');
+    } else {
+      try { localStorage.removeItem('valnatir_review_active'); } catch(e) {}
+      if (dock) dock.style.display = 'none';
+      if (pill) pill.style.display = 'flex';
+      setMode('publish', true);
+      showToast('ℹ️ Modo Review Cerrado');
+    }
+  }
+
+  function setMode(mode, silent) {
     currentReviewMode = mode;
     const tabPub = document.getElementById('v-tab-publish');
     const tabIns = document.getElementById('v-tab-inspect');
@@ -1196,6 +1261,7 @@ function initReviewMode() {
       if (tabPub) tabPub.classList.remove('active');
       if (dot) dot.classList.add('active-inspect');
       if (label) label.textContent = 'Modo Comentarios';
+      if (!silent) showToast('✍️ Modo Comentarios ACTIVO: Haz clic en cualquier texto');
     } else {
       if (tabPub) tabPub.classList.add('active');
       if (tabIns) tabIns.classList.remove('active');
@@ -1205,8 +1271,26 @@ function initReviewMode() {
         currentHovered.classList.remove('valnatir-review-hover');
         currentHovered = null;
       }
+      if (!silent) showToast('🧭 Modo Navegación ACTIVO: Navega normalmente');
     }
   }
+
+  function isOptionC(e) {
+    if (!e.altKey) return false;
+    return e.code === 'KeyC' || e.key === 'c' || e.key === 'C' || e.key === 'ç' || e.key === 'Ç' || e.key === '©' || e.keyCode === 67;
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (isOptionC(e)) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!isReviewActive) {
+        activateReview(true);
+      } else {
+        setMode(currentReviewMode === 'publish' ? 'inspect' : 'publish');
+      }
+    }
+  }, true);
 
   function getReviewerShort() {
     const full = getReviewerName();
