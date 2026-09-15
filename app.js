@@ -1071,9 +1071,9 @@ function initReviewMode() {
       #valnatir-modal-backdrop {
         position: fixed;
         inset: 0;
-        background: rgba(5, 8, 14, 0.80);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        background: rgba(5, 8, 14, 0.82);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         z-index: 1000000;
         display: flex;
         align-items: center;
@@ -1085,25 +1085,28 @@ function initReviewMode() {
         border: 1px solid rgba(95, 211, 184, 0.4);
         border-radius: 18px;
         width: 100%;
-        max-width: 620px;
+        max-width: 660px;
         box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85);
         color: #F3F5F7;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         padding: 24px;
         box-sizing: border-box;
         animation: v-slide-up 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        max-height: 90vh;
+        overflow-y: auto;
       }
       @keyframes v-slide-up {
         from { opacity: 0; transform: translateY(16px); }
         to { opacity: 1; transform: translateY(0); }
       }
       #valnatir-modal h3 {
-        margin: 0 0 12px 0;
-        font-size: 17px;
+        margin: 0 0 10px 0;
+        font-size: 16px;
         color: #5FD3B8;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 8px;
       }
       .v-meta-tag {
         font-size: 11px;
@@ -1123,16 +1126,141 @@ function initReviewMode() {
         color: #8C96A5;
         margin: 12px 0 5px;
       }
+      .v-breadcrumbs {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 6px 0 14px 0;
+        padding: 6px 10px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 11px;
+      }
+      .v-bread-label {
+        color: #8C96A5;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 10px;
+        white-space: nowrap;
+      }
+      .v-bread-list {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-wrap: nowrap;
+      }
+      .v-bread-btn {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 4px;
+        color: #94A3B8;
+        padding: 2px 7px;
+        font-size: 11px;
+        font-family: monospace;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.15s ease;
+      }
+      .v-bread-btn:hover {
+        color: #5FD3B8;
+        border-color: #5FD3B8;
+        background: rgba(95, 211, 184, 0.1);
+      }
+      .v-bread-btn.active {
+        background: #5FD3B8;
+        color: #0E121A;
+        font-weight: 700;
+        border-color: #5FD3B8;
+      }
+      .v-bread-sep {
+        color: rgba(255, 255, 255, 0.25);
+        font-size: 11px;
+      }
       .v-original-text {
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 8px;
-        padding: 9px 12px;
+        padding: 10px 12px;
         font-size: 13px;
         color: #CBD5E1;
         line-height: 1.45;
-        max-height: 80px;
+        max-height: 100px;
         overflow-y: auto;
+      }
+      .v-meta-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 12px;
+        color: #CBD5E1;
+        line-height: 1.45;
+      }
+      .v-meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+      .v-meta-item {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 5px 8px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .v-meta-item-label {
+        font-size: 10px;
+        color: #8C96A5;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .v-meta-item-val {
+        font-size: 11px;
+        color: #5FD3B8;
+        font-weight: 600;
+        font-family: monospace;
+      }
+      #valnatir-inspect-badge {
+        position: fixed;
+        z-index: 999998;
+        pointer-events: none;
+        background: rgba(14, 18, 26, 0.95);
+        border: 1px solid rgba(95, 211, 184, 0.45);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        border-radius: 8px;
+        padding: 5px 10px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+        font-size: 11px;
+        color: #F3F5F7;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        transition: opacity 0.15s ease, transform 0.1s ease;
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      #valnatir-inspect-badge.v-badge-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .v-badge-tag {
+        color: #5FD3B8;
+        font-weight: 700;
+      }
+      .v-badge-type {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1px 6px;
+        border-radius: 4px;
+        font-size: 10px;
+        color: #94A3B8;
+      }
+      .v-badge-dim {
+        color: #CBD5E1;
+        font-size: 10px;
       }
       .v-input, .v-select {
         width: 100%;
@@ -1154,7 +1282,7 @@ function initReviewMode() {
         display: flex;
         justify-content: flex-end;
         gap: 10px;
-        margin-top: 20px;
+        margin-top: 18px;
       }
       .v-btn {
         padding: 8px 16px;
@@ -1276,7 +1404,7 @@ function initReviewMode() {
       if (tabPub) tabPub.classList.remove('active');
       if (dot) dot.classList.add('active-inspect');
       if (label) label.textContent = 'Modo Comentarios';
-      if (!silent) showToast('✍️ Modo Comentarios ACTIVO: Haz clic en cualquier texto');
+      if (!silent) showToast('✍️ Modo Comentarios ACTIVO: Haz clic en cualquier elemento, bloque o diseño');
     } else {
       if (tabPub) tabPub.classList.add('active');
       if (tabIns) tabIns.classList.remove('active');
@@ -1286,6 +1414,7 @@ function initReviewMode() {
         currentHovered.classList.remove('valnatir-review-hover');
         currentHovered = null;
       }
+      updateInspectBadge(null);
       if (!silent) showToast('🧭 Modo Navegación ACTIVO: Navega normalmente');
     }
   }
@@ -1330,6 +1459,175 @@ function initReviewMode() {
 
   let currentHovered = null;
 
+  function getElementMetadata(el) {
+    if (!el || !el.tagName) return null;
+    const tag = el.tagName.toLowerCase();
+    const rect = el.getBoundingClientRect();
+    const width = Math.round(rect.width);
+    const height = Math.round(rect.height);
+
+    let ratioStr = '';
+    if (width > 0 && height > 0) {
+      const r = width / height;
+      if (Math.abs(r - 16/9) < 0.08) ratioStr = '16:9';
+      else if (Math.abs(r - 4/3) < 0.08) ratioStr = '4:3';
+      else if (Math.abs(r - 1) < 0.05) ratioStr = '1:1';
+      else if (Math.abs(r - 9/16) < 0.08) ratioStr = '9:16';
+      else if (Math.abs(r - 21/9) < 0.08) ratioStr = '21:9';
+      else ratioStr = `${r.toFixed(2)}:1`;
+    }
+
+    let id = el.id ? `#${el.id}` : '';
+    let classList = Array.from(el.classList || [])
+      .filter(c => !c.startsWith('valnatir-'))
+      .slice(0, 3)
+      .map(c => `.${c}`)
+      .join('');
+    let selector = `${tag}${id}${classList}`;
+    if (!selector || selector === tag) {
+      selector = id ? `${tag}${id}` : (classList ? `${tag}${classList}` : tag);
+    }
+
+    const isMedia = ['img', 'svg', 'picture', 'video', 'canvas', 'figure'].includes(tag);
+    const isNav = !!(el.closest('nav') || el.closest('header') || tag === 'nav' || tag === 'header' || (tag === 'a' && !el.closest('main')));
+    const isText = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'strong', 'em', 'li', 'td', 'th', 'label', 'blockquote'].includes(tag);
+    const isSection = ['section', 'article', 'aside', 'main', 'footer'].includes(tag);
+
+    let type = 'Bloque / Contenedor';
+    if (isMedia) {
+      type = 'Imagen / Gráfico';
+    } else if (isNav) {
+      type = 'Navegación / Menú';
+    } else if (isSection) {
+      type = 'Sección / Fondo';
+    } else if (isText) {
+      type = 'Texto / Titular';
+    } else if (tag === 'button') {
+      type = 'Botón / CTA';
+    }
+
+    let comp = null;
+    try {
+      comp = window.getComputedStyle(el);
+    } catch(e) {}
+
+    const bgImg = comp && comp.backgroundImage && comp.backgroundImage !== 'none' ? 'Con imagen/gradiente de fondo' : '';
+    const bgColor = comp && comp.backgroundColor && comp.backgroundColor !== 'rgba(0, 0, 0, 0)' && comp.backgroundColor !== 'transparent' ? comp.backgroundColor : '';
+    const borderRadius = comp && comp.borderRadius && comp.borderRadius !== '0px' ? comp.borderRadius : '';
+    const border = comp && comp.borderWidth && comp.borderWidth !== '0px' && comp.borderStyle !== 'none' ? `${comp.borderWidth} ${comp.borderStyle} ${comp.borderColor}` : '';
+
+    const rawText = (el.innerText || '').trim();
+    let textSummary = '';
+    if (isMedia) {
+      if (tag === 'img') {
+        const src = el.getAttribute('src') || '';
+        const alt = el.getAttribute('alt') || 'sin alt';
+        textSummary = `[Imagen: ${src.split('/').pop()} | Alt: "${alt}" | ${width}×${height}px]`;
+      } else {
+        textSummary = `[Elemento gráfico <${tag}> | ${width}×${height}px]`;
+      }
+    } else if (isText) {
+      textSummary = rawText;
+    } else {
+      if (rawText.length > 0) {
+        const cleanSnippet = rawText.replace(/\s+/g, ' ').substring(0, 140);
+        textSummary = `[Bloque <${selector}> (${width}×${height}px)] "${cleanSnippet}${rawText.length > 140 ? '…' : ''}"`;
+      } else {
+        textSummary = `[Bloque/Marco <${selector}> (${width}×${height}px)]`;
+      }
+    }
+
+    return {
+      el,
+      tag,
+      id,
+      classList,
+      selector,
+      type,
+      width,
+      height,
+      ratioStr,
+      bgImg,
+      bgColor,
+      borderRadius,
+      border,
+      rawText,
+      textSummary,
+      isText,
+      isMedia,
+      isNav,
+      isSection
+    };
+  }
+
+  function updateInspectBadge(el) {
+    let badge = document.getElementById('valnatir-inspect-badge');
+    if (!badge) {
+      badge = document.createElement('div');
+      badge.id = 'valnatir-inspect-badge';
+      badge.innerHTML = `
+        <span class="v-badge-tag" id="v-badge-tag"></span>
+        <span class="v-badge-type" id="v-badge-type"></span>
+        <span class="v-badge-dim" id="v-badge-dim"></span>
+      `;
+      document.body.appendChild(badge);
+    }
+    if (!el) {
+      badge.classList.remove('v-badge-visible');
+      return;
+    }
+    const meta = getElementMetadata(el);
+    if (!meta) {
+      badge.classList.remove('v-badge-visible');
+      return;
+    }
+
+    const tagEl = document.getElementById('v-badge-tag');
+    const typeEl = document.getElementById('v-badge-type');
+    const dimEl = document.getElementById('v-badge-dim');
+    if (tagEl) tagEl.textContent = `<${meta.selector}>`;
+    if (typeEl) typeEl.textContent = meta.type;
+    if (dimEl) dimEl.textContent = `${meta.width}×${meta.height}px${meta.ratioStr ? ' (' + meta.ratioStr + ')' : ''}`;
+
+    const rect = el.getBoundingClientRect();
+    let top = rect.top - 36;
+    let left = rect.left;
+    if (top < 10) top = rect.bottom + 8;
+    if (left < 10) left = 10;
+    if (left + 280 > window.innerWidth) left = Math.max(10, window.innerWidth - 290);
+
+    badge.style.top = `${Math.round(top)}px`;
+    badge.style.left = `${Math.round(left)}px`;
+    badge.classList.add('v-badge-visible');
+  }
+
+  function getInspectableAncestors(el) {
+    const list = [];
+    let curr = el;
+    while (curr && curr !== document.body && curr !== document.documentElement) {
+      if (!curr.closest('#valnatir-dock') && !curr.closest('#valnatir-modal-backdrop') && curr.id !== 'valnatir-pill' && curr.id !== 'valnatir-inspect-badge') {
+        const tag = (curr.tagName || '').toUpperCase();
+        if (!['SCRIPT', 'STYLE', 'NOSCRIPT', 'HEAD', 'META'].includes(tag)) {
+          list.unshift(curr);
+        }
+      }
+      curr = curr.parentElement;
+    }
+    return list;
+  }
+
+  function getInspectableElement(el) {
+    if (!el || el === document.body || el === document.documentElement) return null;
+    if (el.closest('#valnatir-dock') || el.closest('#valnatir-modal-backdrop') || el.closest('#valnatir-pill') || el.closest('#valnatir-inspect-badge') || el.closest('#valnatir-hud-toast')) return null;
+    const tag = (el.tagName || '').toUpperCase();
+    if (['SCRIPT', 'STYLE', 'NOSCRIPT', 'HEAD', 'META', 'LINK', 'TEMPLATE'].includes(tag)) return null;
+    if (['PATH', 'G', 'CIRCLE', 'RECT', 'POLYGON', 'POLYLINE', 'LINE', 'DEFS', 'USE'].includes(tag)) {
+      const parentSvg = el.closest('svg');
+      if (parentSvg) return parentSvg;
+    }
+    return el;
+  }
+
   function setupInspector() {
     document.addEventListener('mouseover', (e) => {
       if (currentReviewMode !== 'inspect') return;
@@ -1342,6 +1640,7 @@ function initReviewMode() {
         }
         currentHovered = target;
         currentHovered.classList.add('valnatir-review-hover');
+        updateInspectBadge(target);
       }
     }, true);
 
@@ -1350,6 +1649,7 @@ function initReviewMode() {
       if (currentHovered && !currentHovered.contains(e.relatedTarget)) {
         currentHovered.classList.remove('valnatir-review-hover');
         currentHovered = null;
+        updateInspectBadge(null);
       }
     }, true);
 
@@ -1362,51 +1662,125 @@ function initReviewMode() {
       if (target) {
         e.preventDefault();
         e.stopPropagation();
+        updateInspectBadge(null);
         openModal(target);
       }
     }, true);
   }
 
-  function getInspectableElement(el) {
-    if (!el || el === document.body || el === document.documentElement) return null;
-    const inspectableTags = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'SPAN', 'A', 'LI', 'STRONG', 'EM', 'BUTTON', 'TH', 'TD'];
-    if (inspectableTags.includes(el.tagName)) {
-      const text = el.innerText ? el.innerText.trim() : '';
-      if (text.length > 1 && text.length < 1500) return el;
-    }
-    return el.parentElement ? getInspectableElement(el.parentElement) : null;
-  }
-
   function openModal(el) {
+    updateInspectBadge(null);
+    if (currentHovered) {
+      currentHovered.classList.remove('valnatir-review-hover');
+      currentHovered = null;
+    }
+
     const existing = document.getElementById('valnatir-modal-backdrop');
     if (existing) existing.remove();
 
-    const textOriginal = (el.innerText || '').trim();
-    const tagName = el.tagName.toLowerCase();
+    const meta = getElementMetadata(el);
+    const tagName = meta.tag;
     const pathParts = window.location.pathname.split('/');
     const pageName = pathParts[pathParts.length - 1] || 'index.html';
-    const parentContext = el.closest('[data-dropdown]') ? `Dropdown: ${el.closest('[data-dropdown]').getAttribute('data-dropdown')}` : (el.closest('header') ? 'Header' : 'Contenido');
+    const parentDropdown = el.closest('[data-dropdown]') ? `Dropdown: ${el.closest('[data-dropdown]').getAttribute('data-dropdown')} · ` : '';
+    const parentSection = el.closest('header') ? 'Header' : (el.closest('footer') ? 'Footer' : (el.closest('nav') ? 'Nav' : 'Contenido'));
+    const parentContext = `${parentDropdown}${parentSection} · ${meta.selector} (${meta.width}×${meta.height}px)`;
 
     let defaultCat = 'Tono Editorial / Copywriting';
-    const lowerPage = pageName.toLowerCase();
-    if (lowerPage.includes('compliance') || lowerPage.includes('legal')) {
-      defaultCat = 'Compliance / Legal';
-    } else if (lowerPage.includes('pricing') || lowerPage.includes('canales') || lowerPage.includes('partner') || lowerPage.includes('enterprise')) {
-      defaultCat = 'Claridad Comercial / C-Level';
+    if (meta.isNav) {
+      defaultCat = 'Navegación / UX';
+    } else if (!meta.isText || meta.isMedia || meta.isSection) {
+      defaultCat = 'Diseño / UI / Layout';
+    } else {
+      const lowerPage = pageName.toLowerCase();
+      if (lowerPage.includes('compliance') || lowerPage.includes('legal')) {
+        defaultCat = 'Compliance / Legal';
+      } else if (lowerPage.includes('pricing') || lowerPage.includes('canales') || lowerPage.includes('partner') || lowerPage.includes('enterprise')) {
+        defaultCat = 'Claridad Comercial / C-Level';
+      }
     }
 
     if (!getReviewerName()) {
       ensureReviewerSetup();
     }
 
+    const ancestors = getInspectableAncestors(el);
+
     const backdrop = document.createElement('div');
     backdrop.id = 'valnatir-modal-backdrop';
+
+    const modalTitle = (!meta.isText || meta.isMedia) ? '🎨 Sugerir Cambio de Diseño, Bloque o Navegación' : '📝 Sugerir Cambio / Nota de Feedback';
+    const textLabel = meta.isText ? 'Texto Actual en la Web' : 'Elemento o Bloque Seleccionado';
+    const propLabel = meta.isText ? 'Tu Propuesta de Texto (Opcional)' : 'Propuesta de Ajuste, Diseño o Redacción (Opcional)';
+    const propPlaceholder = meta.isText 
+      ? 'Si tienes una redacción alternativa, escríbela aquí...'
+      : 'Indica ajustes sugeridos (ej: Cambiar ratio a 16:9, reducir márgenes, fondo más oscuro, o nuevo texto)...';
+    const commPlaceholder = meta.isText
+      ? 'Explica brevemente por qué sugieres este cambio...'
+      : 'Explica el motivo del cambio de diseño, navegación, proporciones o maquetación...';
+
+    // Construcción del visor del elemento
+    let originalDisplayHtml = '';
+    if (meta.isText) {
+      originalDisplayHtml = `<div class="v-original-text">${escapeHtml(meta.rawText)}</div>`;
+    } else {
+      let details = [];
+      if (meta.width > 0 && meta.height > 0) {
+        details.push(`<div class="v-meta-item"><div class="v-meta-item-label">Dimensiones</div><div class="v-meta-item-val">${meta.width} × ${meta.height} px</div></div>`);
+      }
+      if (meta.ratioStr) {
+        details.push(`<div class="v-meta-item"><div class="v-meta-item-label">Aspect Ratio</div><div class="v-meta-item-val">${meta.ratioStr}</div></div>`);
+      }
+      if (meta.bgImg || meta.bgColor) {
+        details.push(`<div class="v-meta-item"><div class="v-meta-item-label">Fondo</div><div class="v-meta-item-val">${meta.bgImg || meta.bgColor}</div></div>`);
+      }
+      if (meta.border || meta.borderRadius) {
+        details.push(`<div class="v-meta-item"><div class="v-meta-item-label">Borde / Radio</div><div class="v-meta-item-val">${meta.border || ''} ${meta.borderRadius ? '(' + meta.borderRadius + ')' : ''}</div></div>`);
+      }
+
+      originalDisplayHtml = `
+        <div class="v-meta-card">
+          <div class="v-meta-grid">
+            <div class="v-meta-item">
+              <div class="v-meta-item-label">Selector</div>
+              <div class="v-meta-item-val">&lt;${escapeHtml(meta.selector)}&gt;</div>
+            </div>
+            <div class="v-meta-item">
+              <div class="v-meta-item-label">Tipo</div>
+              <div class="v-meta-item-val">${escapeHtml(meta.type)}</div>
+            </div>
+            ${details.join('')}
+          </div>
+          <div style="font-size:11px; color:#94A3B8; margin-top:6px; border-top:1px solid rgba(255,255,255,0.06); padding-top:6px;">
+            <strong>Contenido:</strong> ${escapeHtml(meta.textSummary)}
+          </div>
+        </div>
+      `;
+    }
+
+    // Breadcrumb buttons HTML
+    const breadcrumbHtml = ancestors.length > 1 ? `
+      <div class="v-breadcrumbs">
+        <span class="v-bread-label">Jerarquía:</span>
+        <div class="v-bread-list">
+          ${ancestors.map((item, idx) => {
+            const isSel = item === el;
+            const aMeta = getElementMetadata(item);
+            const aLabel = aMeta.selector.length > 22 ? aMeta.selector.substring(0, 20) + '…' : aMeta.selector;
+            return `<button type="button" class="v-bread-btn ${isSel ? 'active' : ''}" data-bidx="${idx}" title="${aMeta.type} (${aMeta.width}×${aMeta.height}px)">${escapeHtml(aLabel)}</button>`;
+          }).join('<span class="v-bread-sep">›</span>')}
+        </div>
+      </div>
+    ` : '';
+
     backdrop.innerHTML = `
       <div id="valnatir-modal">
         <h3>
-          <span>📝 Sugerir Cambio / Nota de Feedback</span>
+          <span>${modalTitle}</span>
           <span class="v-meta-tag">${pageName} · &lt;${tagName}&gt;</span>
         </h3>
+
+        ${breadcrumbHtml}
         
         <div style="display:flex; gap:12px; margin-top:4px;">
           <div style="flex:1;">
@@ -1419,14 +1793,14 @@ function initReviewMode() {
           </div>
         </div>
 
-        <span class="v-label">Texto Actual en la Web</span>
-        <div class="v-original-text">${escapeHtml(textOriginal)}</div>
+        <span class="v-label">${textLabel}</span>
+        ${originalDisplayHtml}
 
-        <span class="v-label">Tu Propuesta de Texto (Opcional)</span>
-        <textarea class="v-input" id="v-input-prop" rows="3" placeholder="Si tienes una redacción alternativa, escríbela aquí...">${escapeHtml(textOriginal)}</textarea>
+        <span class="v-label">${propLabel}</span>
+        <textarea class="v-input" id="v-input-prop" rows="${meta.isText ? '3' : '2'}" placeholder="${propPlaceholder}">${meta.isText ? escapeHtml(meta.rawText) : ''}</textarea>
 
         <span class="v-label">Comentario o Justificación</span>
-        <textarea class="v-input" id="v-input-comm" rows="2" placeholder="Explica brevemente por qué sugieres este cambio..."></textarea>
+        <textarea class="v-input" id="v-input-comm" rows="2" placeholder="${commPlaceholder}"></textarea>
 
         <span class="v-label">Resolución / Observaciones (Opcional)</span>
         <input class="v-input" id="v-input-resol" placeholder="Notas de resolución u observaciones..." />
@@ -1438,6 +1812,18 @@ function initReviewMode() {
       </div>
     `;
     document.body.appendChild(backdrop);
+
+    // Eventos de Breadcrumbs para cambiar de elemento en vivo
+    backdrop.querySelectorAll('.v-bread-btn').forEach(btn => {
+      btn.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        const bIdx = parseInt(btn.getAttribute('data-bidx'), 10);
+        if (!isNaN(bIdx) && ancestors[bIdx] && ancestors[bIdx] !== el) {
+          openModal(ancestors[bIdx]);
+        }
+      });
+    });
 
     document.getElementById('v-cancel-modal').addEventListener('click', () => backdrop.remove());
     backdrop.addEventListener('click', (e) => {
@@ -1458,6 +1844,7 @@ function initReviewMode() {
       const propText = (document.getElementById('v-input-prop')?.value || '').trim();
       const cat = defaultCat;
       const comm = (document.getElementById('v-input-comm')?.value || '').trim();
+      const textToRecord = meta.isText ? meta.rawText : meta.textSummary;
 
       const newNote = {
         id: 'NOTE_' + Date.now(),
@@ -1466,8 +1853,8 @@ function initReviewMode() {
         pagina: pageName,
         contexto: parentContext,
         tag: tagName,
-        texto_original: textOriginal,
-        texto_propuesto: propText !== textOriginal ? propText : '',
+        texto_original: textToRecord,
+        texto_propuesto: propText !== textToRecord ? propText : '',
         categoria: cat,
         comentario: comm || 'Sin comentario adicional',
         situacion: status,
