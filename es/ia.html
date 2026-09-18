@@ -10,11 +10,6 @@
   <link rel="alternate" hreflang="en" href="https://valnatir.com/ia.html" />
   <link rel="alternate" hreflang="es" href="https://valnatir.com/es/ia.html" />
   
-  <link rel="preconnect" href="https://api.fontshare.com" />
-  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=cabinet-grotesk@500,700,800,900&f[]=jetbrains-mono@400,500&display=swap" rel="stylesheet" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="../styles.css?v=3.2" />
 </head>
@@ -351,8 +346,9 @@
     <div class="container footer-bottom">
       <div class="footer-legal">
         <span>&copy; 2026 VALNATIR · Todos los derechos reservados.</span>
-        <span>Aviso Legal</span>
-        <span>Privacidad &amp; RGPD</span>
+        <a href="compliance.html#aviso-legal">Aviso Legal</a>
+        <a href="compliance.html#privacidad">Privacidad &amp; RGPD</a>
+        <a href="compliance.html#cookies">Cookies</a>
       </div>
       <div class="footer-governance">
         <span>Confidencial · noindex, nofollow</span>
@@ -401,12 +397,23 @@
           <textarea id="form-case" rows="3" placeholder="Ej. Asistente lateral de atención al ciudadano sin exponer datos fiscales o de salud"></textarea>
         </div>
 
+        <div class="form-group form-consent">
+          <label class="consent-label" style="display:flex; gap:0.5rem; align-items:flex-start; font-size:0.9rem;">
+            <input type="checkbox" id="form-consent" name="consent" required />
+            <span>He leído y acepto la <a href="compliance.html#privacidad">Política de Privacidad</a> y consiento el tratamiento de mis datos para atender mi solicitud.</span>
+          </label>
+        </div>
+
         <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn">
           Solicitar piloto con IA
         </button>
 
         <div class="form-notice">
           🔒 Tus datos viajan cifrados y no se ceden a terceros. Cumplimiento estricto RGPD.
+        </div>
+
+        <div class="form-notice" style="font-size:0.75rem; color:var(--text-faint); margin-top:10px; text-align:center;">
+          Responsable: WOZTELL SANUKER S.L. · Derechos: dpo@valnatir.com
         </div>
       </form>
     </div>

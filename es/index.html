@@ -11,11 +11,6 @@
   <link rel="alternate" hreflang="es" href="https://valnatir.com/es/" />
 
   <!-- Typography: Cabinet Grotesk, General Sans, Instrument Serif, JetBrains Mono -->
-  <link rel="preconnect" href="https://api.fontshare.com" />
-  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=cabinet-grotesk@500,700,800,900&f[]=jetbrains-mono@400,500,600&display=swap" rel="stylesheet" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="../styles.css?v=3.2" />
 </head>
@@ -1196,11 +1191,22 @@
           <label for="form-case">FLUJO A DESBLOQUEAR O PLAN DE INTERÉS</label>
           <input type="text" id="form-case" placeholder="Ej. Aprobación de créditos por WhatsApp" />
         </div>
+        <div class="form-group form-consent">
+          <label class="consent-label" style="display:flex; gap:0.5rem; align-items:flex-start; font-size:0.9rem;">
+            <input type="checkbox" id="form-consent" name="consent" required />
+            <span>He leído y acepto la <a href="compliance.html#privacidad">Política de Privacidad</a> y consiento el tratamiento de mis datos para atender mi solicitud.</span>
+          </label>
+        </div>
+
         <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn" style="margin-top: 18px;">
           Solicitar Perímetro Piloto
         </button>
         <div class="form-note">
           &check; Sin instalación de apps &middot; Sin compromiso &middot; Acuerdo de confidencialidad previo (NDA)
+        </div>
+
+        <div class="form-notice" style="font-size:0.75rem; color:var(--text-faint); margin-top:10px; text-align:center;">
+          Responsable: WOZTELL SANUKER S.L. · Derechos: dpo@valnatir.com
         </div>
       </form>
     </div>

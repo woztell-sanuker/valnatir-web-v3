@@ -571,10 +571,36 @@ function handleFormSubmit(e) {
   if (!submitBtn) return;
 
   const isSpanish = window.location.pathname.includes('/es/') || window.location.pathname.endsWith('/es');
+
+  // RGPD: Validación obligatoria de la casilla de consentimiento
+  const consentBox = document.getElementById('form-consent');
+  if (consentBox && !consentBox.checked) {
+    alert(isSpanish ? 'Debe aceptar la Política de Privacidad para continuar.' : 'You must accept the Privacy Policy to proceed.');
+    consentBox.focus();
+    return;
+  }
+
   submitBtn.innerText = isSpanish ? 'Procesando solicitud...' : 'Processing request...';
   submitBtn.disabled = true;
 
-  setTimeout(() => {
+  // Trazabilidad y demostrabilidad del consentimiento (RGPD Art. 7.1)
+  const payload = {
+    name: document.getElementById('form-name')?.value || '',
+    email: document.getElementById('form-email')?.value || '',
+    company: document.getElementById('form-company')?.value || '',
+    sector: document.getElementById('form-sector')?.value || '',
+    case: document.getElementById('form-case')?.value || '',
+    consent: consentBox ? consentBox.checked : true,
+    consent_timestamp: new Date().toISOString(),
+    consent_text_version: '2026-09-18-v1',
+    consent_text: isSpanish 
+      ? 'He leído y acepto la Política de Privacidad y consiento el tratamiento de mis datos para atender mi solicitud.'
+      : 'I have read and accept the Privacy Policy and consent to the processing of my data to handle my request.',
+    page_url: window.location.href,
+    lang: isSpanish ? 'es' : 'en'
+  };
+
+  const showSuccessModal = () => {
     const modalBox = document.querySelector('.modal-box, .modal-window');
     if (modalBox) {
       modalBox.innerHTML = `
@@ -594,7 +620,26 @@ function handleFormSubmit(e) {
         </div>
       `;
     }
-  }, 800);
+  };
+
+  const leadsWebhook = window.VALNATIR_LEADS_WEBHOOK || localStorage.getItem('valnatir_leads_webhook');
+  if (leadsWebhook) {
+    fetch(leadsWebhook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      mode: 'no-cors'
+    })
+    .then(() => {
+      showSuccessModal();
+    })
+    .catch((err) => {
+      console.warn('Leads webhook dispatch warning:', err);
+      showSuccessModal();
+    });
+  } else {
+    setTimeout(showSuccessModal, 700);
+  }
 }
 window.handleFormSubmit = handleFormSubmit;
 

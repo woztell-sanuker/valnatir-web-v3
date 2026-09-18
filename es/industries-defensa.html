@@ -6,11 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Defensa & Seguridad Crítica · VALNATIR</title>
   
-  <link rel="preconnect" href="https://api.fontshare.com" />
-  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=cabinet-grotesk@500,700,800,900&f[]=jetbrains-mono@400,500&display=swap" rel="stylesheet" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="../styles.css?v=3.2" />
 </head>
@@ -429,7 +424,11 @@
       <div class="footer-bottom">
         <span>&copy; 2026 VALNATIR · Woztell Sanuker Group. Todos los derechos reservados.</span>
         <div class="footer-bottom-links">
-          <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-faint);">ENS Media (RD 311/2022)</span>
+          <a href="compliance.html#aviso-legal">Aviso Legal</a>
+          <span>·</span>
+          <a href="compliance.html#privacidad">Privacidad &amp; RGPD</a>
+          <span>·</span>
+          <a href="compliance.html#cookies">Cookies</a>
         </div>
       </div>
     </div>
@@ -472,11 +471,22 @@
           <label for="form-case">FLUJO O CANAL A DESBLOQUEAR</label>
           <input type="text" id="form-case" placeholder="Describe la interacción o servicio regulado..." />
         </div>
+        <div class="form-group form-consent">
+          <label class="consent-label" style="display:flex; gap:0.5rem; align-items:flex-start; font-size:0.9rem;">
+            <input type="checkbox" id="form-consent" name="consent" required />
+            <span>He leído y acepto la <a href="compliance.html#privacidad">Política de Privacidad</a> y consiento el tratamiento de mis datos para atender mi solicitud.</span>
+          </label>
+        </div>
+
         <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn" style="margin-top: 18px;">
           Solicitar Sandbox de Validación (48h)
         </button>
         <div class="form-note">
           &check; Sin instalación de apps &middot; Protegido por NDA mutuo &middot; SLA de 48 horas
+        </div>
+
+        <div class="form-notice" style="font-size:0.75rem; color:var(--text-faint); margin-top:10px; text-align:center;">
+          Responsable: WOZTELL SANUKER S.L. · Derechos: dpo@valnatir.com
         </div>
       </form>
     </div>

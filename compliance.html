@@ -4,15 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="robots" content="noindex, nofollow" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Compliance & CISO Security · VALNATIR</title>
-  
-  <link rel="preconnect" href="https://api.fontshare.com" />
-  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=cabinet-grotesk@500,700,800,900&f[]=jetbrains-mono@400,500&display=swap" rel="stylesheet" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <title>Legal Notice, Privacy &amp; Cookies · VALNATIR</title>
 
-  <link rel="stylesheet" href="styles.css?v=3.2" />
+  <!-- Canonical & Alternate Hreflang -->
+  <link rel="alternate" hreflang="en" href="https://valnatir.com/compliance.html" />
+  <link rel="alternate" hreflang="es" href="https://valnatir.com/es/compliance.html" />
+
+  <link rel="stylesheet" href="styles.css?v=5.0" />
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -49,7 +47,6 @@
       </a>
 
       <nav class="main-nav" id="main-nav">
-        <!-- 1. SOLUTION (Dropdown) -->
         <div class="nav-item-dropdown" data-dropdown="solution">
           <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
             Solution <svg class="dropdown-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -70,7 +67,6 @@
           </div>
         </div>
 
-        <!-- 2. INDUSTRIES (Dropdown) -->
         <div class="nav-item-dropdown" data-dropdown="industries">
           <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
             Industries <svg class="dropdown-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -95,16 +91,10 @@
           </div>
         </div>
 
-        <!-- 3. COMPLIANCE (Direct link) -->
-        <a href="compliance.html" class="nav-link active">Compliance</a>
-
-        <!-- 4. RESEARCH (Direct link) -->
+        <a href="compliance.html" class="nav-link">Compliance</a>
         <a href="catedra.html" class="nav-link">Research</a>
-
-        <!-- 5. PRICING (Direct link) -->
         <a href="pricing.html" class="nav-link">Pricing</a>
 
-        <!-- 6. ABOUT US (Dropdown) -->
         <div class="nav-item-dropdown" data-dropdown="about">
           <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
             About Us <svg class="dropdown-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -123,13 +113,11 @@
       </nav>
 
       <div class="header-actions">
-        <!-- Language Switcher -->
         <div class="lang-switcher" aria-label="Language Selector">
           <a href="compliance.html" class="lang-link active" data-lang="en">EN</a>
           <a href="es/compliance.html" class="lang-link" data-lang="es">ES</a>
         </div>
-
-        <button class="btn btn-primary" onclick="openModal('Compliance General')">Unlock a Workflow</button>
+        <button class="btn btn-primary" onclick="openModal('Legal')">Unlock a Workflow</button>
       </div>
 
       <button class="mobile-toggle" id="mobile-toggle" aria-label="Open menu">
@@ -138,517 +126,144 @@
     </div>
   </header>
 
-  <section class="hero-section" id="compliance" style="padding: 70px 0 60px;">
+  <section class="hero-section" id="top" style="padding: 70px 0 40px;">
     <div class="hero-radial-glow"></div>
     <div class="container hero-container">
       <div class="eyebrow-wrapper">
-        <span class="badge-kicker">GOVERNANCE &amp; CISO SECURITY</span>
+        <span class="badge-kicker">LEGAL INFORMATION</span>
       </div>
-      <h1 class="hero-title active">
-        Technical rigor and verifiable compliance.<br />
-        <span class="text-gradient">Zero empty promises. Zero indefensible superlatives.</span>
-      </h1>
+      <h1 class="hero-title active">Legal Notice, Privacy &amp; Cookies</h1>
       <p class="hero-subhead">
-        Leadership feels business agility; security, DPO, and compliance teams validate architectural integrity. This section outlines design facts, cryptographic maturity, and the regulatory frameworks governing VALNATIR.
+        Legal information for the valnatir.com website, in accordance with Spanish and European Union law.
       </p>
     </div>
   </section>
 
-  <!-- ENS Media Framework & CISO Institutional Security -->
-  <section class="section-container bg-surface-alt">
+  <!-- 1. LEGAL NOTICE -->
+  <section class="section-container legal-section" id="aviso-legal">
     <div class="container">
-      <div class="split-layout">
-        <div class="split-copy">
-          <span class="section-kicker text-accent">GOVERNMENT &amp; PUBLIC SECTOR SECURITY</span>
-          <h2 class="section-h2">Architected in Conformity with the National Security Scheme (ENS Media)</h2>
-          <p class="section-lead">
-            The benchmark cybersecurity standard for public administrations, financial entities, and critical infrastructure operators. VALNATIR implements the operational security controls prescribed by Royal Decree 311/2022.
-          </p>
-          <ul class="feature-bullets">
-            <li>
-              <strong>Strict Logical Isolation Perimeter:</strong> Every organization operates within its own dedicated logical isolation boundary. Zero data cross-contamination or multi-tenant bleed.
-            </li>
-            <li>
-              <strong>Backend-Managed Cryptographic Confidentiality:</strong> Payloads travel encrypted in transit (TLS 1.3 with forward secrecy) and rest encrypted (AES-256-GCM) with tenant-segregated keys.
-            </li>
-            <li>
-              <strong>Immutable RFC 3161 Event Traceability:</strong> Every flight control intervention, PII redaction, and policy enforcement event is stamped in an append-only Merkle tree log.
-            </li>
-          </ul>
-        </div>
+      <div class="legal-doc">
+        <span class="section-kicker text-accent">LEGAL GOVERNANCE</span>
+        <h2 class="section-h2">Legal Notice</h2>
 
-        <div class="split-visual">
-          <div class="ens-compliance-card">
-            <div class="ens-card-header">
-              <div class="ens-emblem-icon">
-                <svg class="ens-shield-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/>
-                  <path d="M9 12l2 2 4-4"/>
-                </svg>
-              </div>
-              <div class="ens-header-copy">
-                <span class="ens-norm-tag">RD 311/2022 &middot; ENS MEDIA CATEGORY</span>
-                <h3 class="ens-card-title">Declaration of Conformity</h3>
-              </div>
-            </div>
-            <p class="ens-card-desc">
-              Authentication, integrity, traceability, and confidentiality controls are enforced over the conversation before any payload reaches public telecommunication networks or citizen devices.
-            </p>
-            <div class="ens-spec-box">
-              <div class="ens-spec-row highlight">
-                <span class="ens-spec-check">&#10003;</span>
-                <span class="ens-spec-label">Audit Profile:</span>
-                <span class="ens-spec-val">ENS-MEDIA-2026</span>
-              </div>
-              <div class="ens-spec-row">
-                <span class="ens-spec-label">Logical Boundary:</span>
-                <span class="ens-spec-val">Isolated Tenant VPC</span>
-              </div>
-              <div class="ens-spec-row">
-                <span class="ens-spec-label">Cryptographic Custody:</span>
-                <span class="ens-spec-val">Customer HSM / BYOK</span>
-              </div>
-              <div class="ens-spec-row">
-                <span class="ens-spec-label">Auditability:</span>
-                <span class="ens-spec-val">Per-interaction Merkle proof</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <h3>1. Owner identification</h3>
+        <p>In compliance with Article 10 of Spanish Law 34/2002 on Information Society Services and Electronic Commerce (LSSI-CE), the owner of the website valnatir.com is:</p>
+        <ul class="legal-id-list">
+          <li><strong>Company name:</strong> WOZTELL SANUKER S.L.</li>
+          <li><strong>Tax ID (CIF):</strong> B-88356787</li>
+          <li><strong>Registered office:</strong> Edificio de la Estación de Atocha 20, calle Méndez Álvaro, 28045 Madrid (Spain)</li>
+          <li><strong>Phone:</strong> +34 91 290 91 21</li>
+          <li><strong>Email:</strong> dpo@valnatir.com</li>
+          <li><strong>Registry details:</strong> Registered at the Commercial Registry of Madrid, Volume 39,065, Sheet 42, Page M-694068.</li>
+        </ul>
+        <p>VALNATIR is a commercial brand of WOZTELL SANUKER S.L.</p>
+
+        <h3>2. Purpose</h3>
+        <p>This Legal Notice governs access to, navigation on and use of the website valnatir.com (the "Website"), whose purpose is to present VALNATIR's conversational governance platform and enable contact with interested organizations. Access to the Website is free of charge, without prejudice to the user's connection costs. Browsing the Website confers the status of user and implies acceptance of this Legal Notice.</p>
+
+        <h3>3. Conditions of use</h3>
+        <p>The user undertakes to use the Website diligently and lawfully, in accordance with the law, good faith and public order. Any unlawful or harmful use, or use that may damage, disable or overload the Website or prevent its normal operation, is prohibited. The user shall refrain from any action that may harm the image, interests or rights of the owner or of third parties.</p>
+
+        <h3>4. Intellectual and industrial property</h3>
+        <p>All Website elements (texts, images, logos, source code, designs, trademarks and distinctive signs) are owned by WOZTELL SANUKER S.L. or by third parties who have authorized their use, and are protected by intellectual and industrial property law. Their reproduction, distribution, public communication or transformation without the owner's express written consent is prohibited. Third-party trademarks, trade names and logos that may appear on the Website belong to their respective owners.</p>
+
+        <h3>5. Liability</h3>
+        <p>The owner takes reasonable measures to keep contents accurate and up to date but does not guarantee the absence of errors or the continuous availability of the Website, which may be interrupted for maintenance or improvements. The owner shall not be liable for damage arising from interference, omissions, faults, viruses or disconnections beyond its control, without prejudice to taking the necessary measures to restore the service. Nor shall it be liable for the content of third-party sites it may link to.</p>
+
+        <h3>6. Links</h3>
+        <p>The Website may contain links to third-party sites. The owner assumes no responsibility for their information, content or services, whose inclusion does not imply endorsement. The user accesses them at their own risk.</p>
+
+        <h3>7. Personal data protection</h3>
+        <p>The processing of users' personal data is governed by the Privacy Policy, in accordance with Regulation (EU) 2016/679 (GDPR) and Spanish Organic Law 3/2018 (LOPDGDD). The Data Controller is WOZTELL SANUKER S.L.</p>
+
+        <h3>8. Cookies</h3>
+        <p>The Website uses cookies and equivalent technologies as described in the Cookie Policy.</p>
+
+        <h3>9. Governing law and jurisdiction</h3>
+        <p>This Legal Notice is governed by Spanish law. For the resolution of any dispute, the parties, waiving any other jurisdiction that may correspond to them, submit to the Courts and Tribunals of Valencia.</p>
       </div>
     </div>
   </section>
 
-  <!-- CISO Zero-Trust Architectural Topology -->
-  <section class="section-container">
+  <!-- 2. PRIVACY -->
+  <section class="section-container bg-surface-alt legal-section" id="privacidad">
     <div class="container">
-      <div class="section-header">
-        <span class="section-kicker text-accent">ZERO-TRUST CONVERSATIONAL TOPOLOGY</span>
-        <h2 class="section-h2">Architectural Interception Boundary</h2>
-        <p class="section-lead">
-          How VALNATIR sits between external consumer carriers and institutional core systems, enforcing strict in-flight policy evaluation with zero network delay.
-        </p>
-      </div>
+      <div class="legal-doc">
+        <span class="section-kicker text-accent">DATA PROTECTION</span>
+        <h2 class="section-h2">Privacy Policy</h2>
 
-      <div class="visual-diagram-card">
-        <svg class="diagram-canvas-svg" viewBox="0 0 1100 360" width="100%" height="auto" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <linearGradient id="grad-zone1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#14181f" stop-opacity="0.9"/>
-              <stop offset="100%" stop-color="#0b0d12" stop-opacity="0.95"/>
-            </linearGradient>
-            <linearGradient id="grad-zone2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#185359" stop-opacity="0.3"/>
-              <stop offset="100%" stop-color="#2B7E6E" stop-opacity="0.15"/>
-            </linearGradient>
-            <linearGradient id="grad-zone3" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#4B145F" stop-opacity="0.25"/>
-              <stop offset="100%" stop-color="#185359" stop-opacity="0.2"/>
-            </linearGradient>
-            <filter id="glow-filter" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="6" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-          </defs>
+        <h3>1. Data Controller</h3>
+        <ul class="legal-id-list">
+          <li><strong>Controller:</strong> WOZTELL SANUKER S.L.</li>
+          <li><strong>Tax ID (CIF):</strong> B-88356787</li>
+          <li><strong>Address:</strong> Edificio de la Estación de Atocha 20, calle Méndez Álvaro, 28045 Madrid (Spain)</li>
+          <li><strong>Privacy and rights contact:</strong> dpo@valnatir.com</li>
+          <li><strong>General contact:</strong> info@valnatir.com</li>
+        </ul>
 
-          <!-- Zone 1: External Untrusted Perimeter -->
-          <rect x="20" y="20" width="310" height="320" rx="12" fill="url(#grad-zone1)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
-          <text x="40" y="52" fill="#8E9997" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">ZONE 01 · UNTRUSTED PERIMETER</text>
-          
-          <rect x="40" y="75" width="270" height="68" rx="8" fill="#171b22" stroke="rgba(255,255,255,0.12)" />
-          <text x="60" y="105" fill="#FFFFFF" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600">Consumer Messaging App</text>
-          <text x="60" y="125" fill="#8E9997" font-family="Inter, sans-serif" font-size="11">WhatsApp / RCS / Mobile Web</text>
+        <h3>2. Data we process</h3>
+        <p>We process the data you voluntarily provide through the contact form: name, corporate email address, organization and, optionally, the use case described. We also process technical browsing data strictly necessary to provide and secure the Website, such as the IP address and connection data.</p>
+        <p>We do not request special categories of data (Article 9 GDPR). Please do not include sensitive data in the use-case field.</p>
 
-          <rect x="40" y="158" width="270" height="68" rx="8" fill="#171b22" stroke="rgba(255,255,255,0.12)" />
-          <text x="60" y="188" fill="#FFFFFF" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600">Carrier Cloud Gateways</text>
-          <text x="60" y="208" fill="#8E9997" font-family="Inter, sans-serif" font-size="11">Meta Cloud API / Telco Endpoints</text>
+        <h3>3. Purposes and legal basis</h3>
+        <ul>
+          <li><strong>To handle the contact request and maintain the resulting communication.</strong> Legal basis: pre-contractual measures at the data subject's request and the consent given when submitting the form.</li>
+          <li><strong>To send commercial communications about our own products and services.</strong> Legal basis: the Controller's legitimate interest or the data subject's consent, with the right to object at any time.</li>
+          <li><strong>To ensure Website security and prevent fraudulent use.</strong> Legal basis: the Controller's legitimate interest.</li>
+          <li><strong>To comply with applicable legal obligations.</strong> Legal basis: compliance with a legal obligation.</li>
+        </ul>
 
-          <rect x="40" y="241" width="270" height="68" rx="8" fill="#171b22" stroke="rgba(255,255,255,0.12)" />
-          <text x="60" y="271" fill="#FFFFFF" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600">Citizen / Employee Device</text>
-          <text x="60" y="291" fill="#8E9997" font-family="Inter, sans-serif" font-size="11">BYOD &middot; Unmanaged Hardware</text>
+        <h3>4. Retention</h3>
+        <p>Contact data will be kept while a mutual commercial interest in the relationship exists and is not erased at the data subject's request. You may request the erasure of your data at any time. Data required to comply with legal obligations will be kept for the legally required periods.</p>
 
-          <!-- Zone 2: VALNATIR Flight Control Interception Plane -->
-          <rect x="365" y="20" width="370" height="320" rx="12" fill="url(#grad-zone2)" stroke="#5FD3B8" stroke-width="2" />
-          <text x="385" y="52" fill="#5FD3B8" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">ZONE 02 · VALNATIR SOVEREIGN FLIGHT CONTROL</text>
-          
-          <rect x="385" y="75" width="330" height="68" rx="8" fill="#0E1719" stroke="rgba(95,211,184,0.4)" />
-          <text x="405" y="103" fill="#FFFFFF" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600">In-Flight Interception Gateway</text>
-          <text x="405" y="123" fill="#5FD3B8" font-family="JetBrains Mono, monospace" font-size="11">Sub-3ms policy evaluation &middot; TLS 1.3</text>
+        <h3>5. Recipients</h3>
+        <p>No data is shared with third parties except by legal obligation. To provide the service, the Controller may rely on providers acting as processors (for example, hosting, email and contact-management services), which process the data on the Controller's behalf under a contract compliant with Article 28 GDPR.</p>
 
-          <rect x="385" y="158" width="330" height="68" rx="8" fill="#0E1719" stroke="rgba(95,211,184,0.4)" />
-          <text x="405" y="186" fill="#FFFFFF" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600">Deterministic PII Redaction</text>
-          <text x="405" y="206" fill="#8E9997" font-family="Inter, sans-serif" font-size="11">Context anonymization before any LLM reach</text>
+        <h3>6. Data subject rights</h3>
+        <p>You may exercise the rights of access, rectification, erasure, objection, restriction of processing and portability, and withdraw any consent given, by writing to dpo@valnatir.com and stating the right you wish to exercise. You have the right to lodge a complaint with the Spanish Data Protection Agency (www.aepd.es) if you consider that the processing does not comply with the applicable regulations.</p>
 
-          <rect x="385" y="241" width="330" height="68" rx="8" fill="#0E1719" stroke="rgba(95,211,184,0.4)" />
-          <text x="405" y="269" fill="#FFFFFF" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600">RFC 3161 Merkle Chain Engine</text>
-          <text x="405" y="289" fill="#5FD3B8" font-family="JetBrains Mono, monospace" font-size="11">Non-repudiation &middot; Immutable state log</text>
+        <h3>7. Security</h3>
+        <p>The Controller applies appropriate technical and organizational measures to protect personal data, including encryption of communications in transit via HTTPS/TLS and information access-control measures.</p>
 
-          <!-- Zone 3: Enterprise Hardened Core -->
-          <rect x="770" y="20" width="310" height="320" rx="12" fill="url(#grad-zone3)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" />
-          <text x="790" y="52" fill="#E2E8F0" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">ZONE 03 · HARDENED ENTERPRISE CORE</text>
-          
-          <rect x="790" y="75" width="270" height="68" rx="8" fill="#161522" stroke="rgba(255,255,255,0.12)" />
-          <text x="810" y="105" fill="#FFFFFF" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600">Customer VPC / On-Prem</text>
-          <text x="810" y="125" fill="#8E9997" font-family="Inter, sans-serif" font-size="11">Sovereign Cloud (AWS / Azure / GCP)</text>
+        <h3>8. Minors</h3>
+        <p>The Website is aimed at professionals and organizations. It is not intended for minors, and their data is not knowingly collected.</p>
 
-          <rect x="790" y="158" width="270" height="68" rx="8" fill="#161522" stroke="rgba(255,255,255,0.12)" />
-          <text x="810" y="188" fill="#FFFFFF" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600">Hardware Security Module</text>
-          <text x="810" y="208" fill="#5FD3B8" font-family="JetBrains Mono, monospace" font-size="11">Dedicated KMS / BYOK Key Custody</text>
-
-          <rect x="790" y="241" width="270" height="68" rx="8" fill="#161522" stroke="rgba(255,255,255,0.12)" />
-          <text x="810" y="271" fill="#FFFFFF" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600">Core Systems &amp; SIEM</text>
-          <text x="810" y="291" fill="#8E9997" font-family="Inter, sans-serif" font-size="11">ERP &middot; CRM &middot; SOC Real-time Webhooks</text>
-
-          <!-- Interconnecting Flow Connectors -->
-          <path d="M 310 109 L 385 109" stroke="#5FD3B8" stroke-width="2" stroke-dasharray="4 4" />
-          <path d="M 715 109 L 790 109" stroke="#5FD3B8" stroke-width="2" stroke-dasharray="4 4" />
-          <circle cx="347" cy="109" r="4" fill="#5FD3B8" />
-          <circle cx="752" cy="109" r="4" fill="#5FD3B8" />
-        </svg>
+        <h3>9. Changes</h3>
+        <p>This Privacy Policy may be updated to reflect legal or service developments. The version in force is the one published on the Website.</p>
       </div>
     </div>
   </section>
 
-  <!-- Interactive Multi-Framework Compliance Hub -->
-  <section class="section-container bg-surface-alt">
+  <!-- 3. COOKIES -->
+  <section class="section-container legal-section" id="cookies">
     <div class="container">
-      <div class="section-header">
-        <span class="section-kicker text-accent">REGULATORY CROSS-WALK</span>
-        <h2 class="section-h2">Multi-Framework Operational Compliance Hub</h2>
-        <p class="section-lead">
-          Select any regulatory mandate below to review the technical control requirements, VALNATIR enforcement mechanisms, and auditor-ready deliverables.
-        </p>
-      </div>
+      <div class="legal-doc">
+        <span class="section-kicker text-accent">COOKIES</span>
+        <h2 class="section-h2">Cookie Policy</h2>
 
-      <!-- Framework Navigation Tabs -->
-      <div class="framework-tabs-nav" role="tablist">
-        <button class="f-tab active" data-framework="ens" role="tab" aria-selected="true">
-          ENS (RD 311/2022)
-        </button>
-        <button class="f-tab" data-framework="dora" role="tab" aria-selected="false">
-          DORA (EU 2022/2554)
-        </button>
-        <button class="f-tab" data-framework="gdpr" role="tab" aria-selected="false">
-          GDPR &amp; LOPDGDD
-        </button>
-        <button class="f-tab" data-framework="nis2" role="tab" aria-selected="false">
-          NIS2 Directive
-        </button>
-        <button class="f-tab" data-framework="iso" role="tab" aria-selected="false">
-          ISO/IEC 27001:2022
-        </button>
-        <button class="f-tab" data-framework="aiact" role="tab" aria-selected="false">
-          EU AI Act
-        </button>
-      </div>
+        <h3>1. What cookies are</h3>
+        <p>Cookies are files downloaded to the user's device when accessing certain web pages. Under Article 22.2 of the LSSI-CE, other technologies for storing or accessing information on the user's device, such as browser local storage, are treated equivalently to cookies.</p>
 
-      <!-- Panel 1: ENS -->
-      <div class="framework-panel active" id="fpanel-ens">
-        <div class="fpanel-grid">
-          <div class="fpanel-card">
-            <span class="fpanel-badge">ENS · OP.PL.1</span>
-            <h4>Perimeter &amp; Network Segregation</h4>
-            <p>Complete operational segregation between the public carrier messaging transport layer and enterprise core internal databases.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> Logical Boundary Topology &middot; CCN-STIC Mapping</div>
-          </div>
-          <div class="fpanel-card">
-            <span class="fpanel-badge">ENS · OP.EXP.8</span>
-            <h4>Append-Only Event Logging</h4>
-            <p>Cryptographically sealed log generation for every transactional session, ensuring full non-repudiation under administrative inquiry.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> RFC 3161 Merkle Chain Digest Export</div>
-          </div>
-          <div class="fpanel-card">
-            <span class="fpanel-badge">ENS · MP.COM.2</span>
-            <h4>Cryptographic Information Protection</h4>
-            <p>End-to-end payload encryption using approved cipher suites (TLS 1.3, AES-256-GCM) with customer-isolated cryptographic keys.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> Cryptographic Architecture Dossier</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Panel 2: DORA -->
-      <div class="framework-panel" id="fpanel-dora">
-        <div class="fpanel-grid">
-          <div class="fpanel-card">
-            <span class="fpanel-badge">DORA · Art. 28</span>
-            <h4>ICT Third-Party Risk Mitigation</h4>
-            <p>Eliminates unmonitored reliance on consumer messaging carriers by deploying an independent, sovereign conversation mediation layer.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> Third-Party ICT Risk Assessment Dossier</div>
-          </div>
-          <div class="fpanel-card">
-            <span class="fpanel-badge">DORA · Art. 11</span>
-            <h4>Business Continuity &amp; Carrier Failover</h4>
-            <p>Decoupled conversational state allows instantaneous redirection of customer workflows across fallback channels during telco downtime.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> Multi-Carrier Resilience Runbook</div>
-          </div>
-          <div class="fpanel-card">
-            <span class="fpanel-badge">DORA · Art. 17</span>
-            <h4>Major ICT Incident Detection &amp; Alerting</h4>
-            <p>Real-time detection of protocol anomalies, payload poisoning, or fraudulent impersonation with automated SOC webhook alerts.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> Incident Escalation &amp; Forensics API</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Panel 3: GDPR -->
-      <div class="framework-panel" id="fpanel-gdpr">
-        <div class="fpanel-grid">
-          <div class="fpanel-card">
-            <span class="fpanel-badge">GDPR · Art. 25</span>
-            <h4>Privacy by Design &amp; Default (PbD)</h4>
-            <p>Deterministic, in-flight PII masking before any message payload is processed by automated agents or external foundational models.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> Data Protection Impact Assessment (DPIA)</div>
-          </div>
-          <div class="fpanel-card">
-            <span class="fpanel-badge">GDPR · Art. 17</span>
-            <h4>Enforceable Right to Erasure</h4>
-            <p>Guaranteed cryptographic erasure from institutional storage nodes without dependency on consumer platform retention policies.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> Deterministic Erasure Verification Certificate</div>
-          </div>
-          <div class="fpanel-card">
-            <span class="fpanel-badge">GDPR · Art. 28</span>
-            <h4>Zero LLM Training Guarantee</h4>
-            <p>Binding contract and technical enforcement ensuring zero organizational conversational data is ever ingested for commercial model re-training.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> Data Processing Addendum (DPA) Clause Annex</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Panel 4: NIS2 -->
-      <div class="framework-panel" id="fpanel-nis2">
-        <div class="fpanel-grid">
-          <div class="fpanel-card">
-            <span class="fpanel-badge">NIS2 · Art. 21</span>
-            <h4>Supply Chain Cybersecurity</h4>
-            <p>Secures the conversational digital supply chain by inspecting all payloads, file transfers, and webhooks at the telecommunication edge.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> Essential/Important Entity Security Annex</div>
-          </div>
-          <div class="fpanel-card">
-            <span class="fpanel-badge">NIS2 · Art. 23</span>
-            <h4>24-Hour Early Warning Incident Notification</h4>
-            <p>Automated SIEM integration delivering immediate cryptographic proof and structured alerts upon detection of malicious communication events.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> CSIRT Telemetry &amp; Log Forwarding Specs</div>
-          </div>
-          <div class="fpanel-card">
-            <span class="fpanel-badge">NIS2 · Art. 21.2</span>
-            <h4>Multi-Factor &amp; Zero-Trust Access</h4>
-            <p>Cryptographic ephemeral links and eIDAS qualified digital certificate elevation for high-assurance transactional approvals.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> High-Assurance Identity Bridge Guide</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Panel 5: ISO -->
-      <div class="framework-panel" id="fpanel-iso">
-        <div class="fpanel-grid">
-          <div class="fpanel-card">
-            <span class="fpanel-badge">ISO 27001 · A.8.24</span>
-            <h4>Use of Cryptography</h4>
-            <p>Managed cryptographic key lifecycle with support for customer hardware security modules (BYOK via PKCS#11, AWS KMS, Azure Key Vault).</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> Key Management &amp; Cryptographic Policy</div>
-          </div>
-          <div class="fpanel-card">
-            <span class="fpanel-badge">ISO 27001 · A.8.15</span>
-            <h4>Logging &amp; Monitoring</h4>
-            <p>Tamper-evident audit trails with centralized log forwarding, sub-second event recording, and synchronized NTP time verification.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> SOC 2 / ISO Audit Trail Export Schema</div>
-          </div>
-          <div class="fpanel-card">
-            <span class="fpanel-badge">ISO 27001 · A.5.23</span>
-            <h4>Information Security in Cloud Services</h4>
-            <p>Strict logical tenant isolation and European sovereign cloud infrastructure compliant with certified ISO 27001 datacenter controls.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> Cloud Security Assessment Matrix</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Panel 6: EU AI Act -->
-      <div class="framework-panel" id="fpanel-aiact">
-        <div class="fpanel-grid">
-          <div class="fpanel-card">
-            <span class="fpanel-badge">AI ACT · Art. 14</span>
-            <h4>Human Oversight &amp; Autonomous Interception</h4>
-            <p>Real-time human-in-the-loop intervention mechanisms allowing instant supervisor takeover before any automated message reaches the end-user.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> Human Oversight Architecture Dossier</div>
-          </div>
-          <div class="fpanel-card">
-            <span class="fpanel-badge">AI ACT · Art. 12</span>
-            <h4>Technical Record-Keeping &amp; Traceability</h4>
-            <p>Automatic immutable logging of prompt inputs, model parameters, retrieved contexts, and generated responses for post-market auditing.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> AI Operational Log Auditing Specification</div>
-          </div>
-          <div class="fpanel-card">
-            <span class="fpanel-badge">AI ACT · Art. 50</span>
-            <h4>Transparency &amp; Synthetic Content Marking</h4>
-            <p>Deterministic watermark and explicit notification to users when conversing with automated systems, fulfilling Article 50 transparency duties.</p>
-            <div class="fpanel-deliverable"><strong>Deliverable:</strong> Transparency &amp; Disclosure Validation Spec</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Live Cryptographic Evidence & Merkle Chaining -->
-  <section class="section-container">
-    <div class="container">
-      <div class="split-layout">
-        <div class="split-copy">
-          <span class="section-kicker text-accent">FORENSIC CERTAINTY</span>
-          <h2 class="section-h2">Qualified RFC 3161 Merkle Chain Auditability</h2>
-          <p class="section-lead">
-            Traditional database logs can be altered by database administrators. VALNATIR links every conversational event into a cryptographically sealed Merkle chain, providing admissible proof in judicial and regulatory proceedings.
-          </p>
-          <ul class="feature-bullets">
-            <li>
-              <strong>Cryptographic Non-Repudiation:</strong> Each message event incorporates the SHA-256 hash of the preceding event, preventing retroactive ledger tampering.
-            </li>
-            <li>
-              <strong>Qualified European Timestamping:</strong> Root hashes are sealed against eIDAS-qualified trust service providers (TSPs) under RFC 3161 standard.
-            </li>
-            <li>
-              <strong>Zero-Knowledge Audit Verification:</strong> External auditors can mathematically verify conversation integrity without decrypting sensitive customer data.
-            </li>
-          </ul>
-        </div>
-
-        <div class="split-visual">
-          <div class="terminal-box">
-            <div class="terminal-header">
-              <div class="terminal-dots-wrap">
-                <span class="terminal-dot red"></span>
-                <span class="terminal-dot yellow"></span>
-                <span class="terminal-dot green"></span>
-              </div>
-              <span class="terminal-title">valnatir-merkle-audit-cli --verify-chain</span>
-              <span class="terminal-status-badge">LIVE SEALED</span>
-            </div>
-            <div class="terminal-body">
-              <div class="t-line"><span class="t-ts">[14:02:41.102]</span> <span class="t-tag">EVENT_INSPECT</span> Carrier packet intercepted from carrier gateway.</div>
-              <div class="t-line"><span class="t-ts">[14:02:41.104]</span> <span class="t-tag accent">PII_MASK</span> 2 fields sanitized &middot; SHA256: 3a9f7...b10</div>
-              <div class="t-line"><span class="t-ts">[14:02:41.105]</span> <span class="t-tag success">POLICY_ALLOW</span> Rule ENS-MP.COM.2 matched &middot; Latency: 2.1ms</div>
-              <div class="t-line highlight"><span class="t-ts">[14:02:41.106]</span> <span class="t-tag success">MERKLE_ROOT</span> Block #892,104 &middot; Hash: 0x8b3f4...e90a</div>
-              <div class="t-line"><span class="t-ts">[14:02:41.107]</span> <span class="t-tag">RFC3161_SEAL</span> Timestamp Token signed by Qualified European TSP.</div>
-              <div class="t-line terminal-verified">✓ VERIFICATION STATUS: 100% VALID &middot; CHAIN INTEGRITY CERTIFIED</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Cryptographic Truth Matrix -->
-  <section class="section-container bg-surface-alt">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-kicker text-accent">TECHNICAL TRUTH TABLE</span>
-        <h2 class="section-h2">Capabilities Matrix &amp; Technical Maturity Level</h2>
-        <p class="section-lead">
-          In strict compliance with our corporate code of honesty: every sensitive capability is declared alongside its exact delivery status and technical delivery scope.
-        </p>
-      </div>
-
-      <div class="matrix-table-wrap">
-        <table class="matrix-table">
+        <h3>2. Cookies and storage this site uses</h3>
+        <p>This website uses exclusively technical cookies and storage, necessary for its proper functioning and to remember the user's language preference. It does not use analytics, advertising or profiling cookies, nor third-party trackers.</p>
+        <table>
           <thead>
-            <tr>
-              <th>Sensitive Capability</th>
-              <th>Technical Maturity</th>
-              <th>Exact Technical Delivery Scope</th>
-            </tr>
+            <tr><th>Item</th><th>Type</th><th>Purpose</th><th>Duration</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Conversation Encryption</td>
-              <td><span class="status-pill status-product">PRODUCT</span></td>
-              <td>Backend-managed encryption in transit (TLS 1.3) and at rest (AES-256-GCM). Per-organization keys. In ephemeral rooms: in-browser ephemeral keys.</td>
-            </tr>
-            <tr>
-              <td>Pre-LLM Anonymization</td>
-              <td><span class="status-pill status-product">PRODUCT</span></td>
-              <td>Real-time PII masking before dispatching payloads to AI providers.* Keys and context remain under customer control.</td>
-            </tr>
-            <tr>
-              <td>Blind Retriever</td>
-              <td><span class="status-pill status-pilot">REAL PILOT</span></td>
-              <td>Successfully piloted in production clients for indexed corporate knowledge retrieval without exposing raw underlying documents.</td>
-            </tr>
-            <tr>
-              <td>Customer Key Custody (BYOK)</td>
-              <td><span class="status-pill status-option">PREPARED OPTION</span></td>
-              <td>Key custody in customer-owned KMS/HSM for dedicated VPC and PaaS deployments.</td>
-            </tr>
-            <tr>
-              <td>National Security Scheme (ENS)</td>
-              <td><span class="status-pill status-compliant">MEDIA CONFORMANT</span></td>
-              <td>Architected in full conformity with Royal Decree 311/2022 Media Category specifications.</td>
-            </tr>
+            <tr><td>valnatir_lang</td><td>Technical / preference</td><td>Remember the chosen language (Spanish or English)</td><td>Persistent in the browser</td></tr>
+            <tr><td>Session and security data</td><td>Technical</td><td>Ensure the functioning and security of browsing</td><td>Session</td></tr>
           </tbody>
         </table>
-      </div>
 
-      <div class="canonical-footnote">
-        * <strong>Mandatory Footnote:</strong> No PII exposed. Data anonymized prior to reaching the model. Encryption keys and custody remain under your organization's control.
-      </div>
-    </div>
-  </section>
+        <h3>3. Consent</h3>
+        <p>In accordance with Article 22.2 of the LSSI-CE, technical or strictly necessary cookies and storage are exempt from the prior consent requirement. As this site does not use cookies subject to consent, no cookie settings panel is displayed.</p>
 
-  <!-- Legal & Regulatory Policy Disclosures (Anchors for Footer) -->
-  <section class="section-container">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-kicker text-accent">LEGAL &amp; STATUTORY COMPLIANCE</span>
-        <h2 class="section-h2">Corporate Governance &amp; Statutory Disclosures</h2>
-        <p class="section-lead">
-          Official statutory documentation, privacy disclosures, and cookie policies governing VALNATIR's web presence and enterprise services.
-        </p>
-      </div>
+        <h3>4. How to manage or disable cookies</h3>
+        <p>Users can configure their browser to block or delete cookies and local storage. The most common browsers (Chrome, Firefox, Safari and Edge) offer privacy settings to manage this data. Blocking technical storage may affect the language preference.</p>
 
-      <div class="fpanel-grid">
-        <div class="legal-drawer-card" id="aviso-legal">
-          <h4>Legal Notice &amp; Ownership</h4>
-          <p>
-            VALNATIR is an enterprise deep-tech brand operated by WOZTELL SANUKER GROUP. Specialized in high-assurance conversational governance and zero-trust telecommunication mediation.
-          </p>
-          <div class="legal-drawer-meta">
-            Headquarters: European Union &middot; Contact: legal@valnatir.com<br />
-            Applicable Law: Laws of the Kingdom of Spain &amp; European Union.
-          </div>
-        </div>
-
-        <div class="legal-drawer-card" id="privacidad">
-          <h4>Privacy Policy &amp; GDPR</h4>
-          <p>
-            We process technical contact inquiries solely to coordinate pilot sandboxes and technical evaluation dossiers. We never sell, transfer, or profile corporate user data.
-          </p>
-          <div class="legal-drawer-meta">
-            Data Controller: WOZTELL SANUKER GROUP &middot; Rights: Access, rectification, erasure, and restriction via dpo@valnatir.com.
-          </div>
-        </div>
-
-        <div class="legal-drawer-card" id="cookies">
-          <h4>Cookie Policy &amp; Tracking</h4>
-          <p>
-            This website strictly uses essential technical session cookies required for security and language preference. Zero third-party behavioral ad trackers or invasive analytics cookies.
-          </p>
-          <div class="legal-drawer-meta">
-            Storage: Local browser preference ('valnatir_lang') &middot; Third-party trackers: None.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-banner-section">
-    <div class="container">
-      <div class="cta-banner-inner">
-        <span class="cta-badge">AUDITABLE CONVERSATIONS</span>
-        <h2 class="cta-h2">Pass your CISO and DPO security audit without friction</h2>
-        <p class="cta-subhead">We provide your security, compliance, and legal teams with comprehensive technical documentation and compliance questionnaires.</p>
-        <div class="cta-buttons">
-          <button class="btn btn-primary btn-lg" onclick="openModal('CISO Security Dossier')">Request Security Dossier</button>
-          <a href="industries.html" class="btn btn-ghost btn-lg">Explore Industry Use Cases &rarr;</a>
-        </div>
+        <h3>5. Changes</h3>
+        <p>This Cookie Policy may be updated. The version in force is the one published on the Website.</p>
       </div>
     </div>
   </section>
@@ -677,7 +292,7 @@
         <h5>Platform</h5>
         <a href="solution.html">Flight Control</a>
         <a href="ia.html">AI &amp; Anonymization</a>
-        <a href="compliance.html">ENS Media Scheme</a>
+        <a href="compliance.html">Compliance</a>
       </div>
 
       <div class="footer-nav-col">
@@ -686,7 +301,7 @@
         <a href="industries-govtech.html">Govtech &amp; Local</a>
         <a href="industries-defensa.html">Defense &amp; Public Safety</a>
         <a href="become-a-partner.html">Partner Program</a>
-            <a href="pricing.html">Pricing Models</a>
+        <a href="pricing.html">Pricing Models</a>
       </div>
 
       <div class="footer-nav-col">
@@ -700,8 +315,9 @@
     <div class="container footer-bottom">
       <div class="footer-legal">
         <span>&copy; 2026 VALNATIR · All rights reserved.</span>
-        <span>Legal Notice</span>
-        <span>Privacy &amp; GDPR</span>
+        <a href="#aviso-legal" style="color: inherit; text-decoration: none;">Legal Notice</a>
+        <a href="#privacidad" style="color: inherit; text-decoration: none;">Privacy &amp; GDPR</a>
+        <a href="#cookies" style="color: inherit; text-decoration: none;">Cookies</a>
       </div>
       <div class="footer-governance">
         <span>Confidential · noindex, nofollow</span>
@@ -713,9 +329,9 @@
     <div class="modal-window">
       <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
       <div class="modal-header">
-        <span class="badge-kicker text-accent">TECHNICAL DOSSIER</span>
-        <h3>Request Security Dossier</h3>
-        <p>Specify your compliance and security requirements to receive comprehensive technical evaluation documentation.</p>
+        <span class="badge-kicker text-accent">CONTACT</span>
+        <h3>Talk to an architect</h3>
+        <p>Tell us about your case and we will get back to you.</p>
       </div>
 
       <form class="modal-form" id="pilot-form" onsubmit="handleFormSubmit(event)">
@@ -730,31 +346,28 @@
         </div>
 
         <div class="form-group">
-          <label for="form-sector">Sector / Scope</label>
-          <select id="form-sector" required>
-            <option value="" disabled selected>Select your sector</option>
-            <option value="enterprise-banca">Enterprise · Banking &amp; Finance</option>
-            <option value="enterprise-seguros">Enterprise · Insurance</option>
-            <option value="enterprise-salud">Enterprise · Healthcare &amp; Clinical Networks</option>
-            <option value="enterprise-retail">Enterprise · Retail &amp; High-Value Commerce</option>
-            <option value="govtech-aapp">Govtech · Public Administration</option>
-            <option value="govtech-local">Govtech · Local Government &amp; Municipalities</option>
-            <option value="defensa-ffcse">Defense &amp; Public Safety</option>
-            <option value="otro">Other Regulated Sector</option>
-          </select>
+          <label for="form-company">Organization</label>
+          <input type="text" id="form-company" required placeholder="Organization name" />
         </div>
 
         <div class="form-group">
-          <label for="form-case">Which regulatory framework is your top priority?</label>
-          <textarea id="form-case" rows="3" placeholder="e.g. ENS Media conformity or DORA compliance for payment authorization workflows"></textarea>
+          <label for="form-case">Use case</label>
+          <textarea id="form-case" rows="3" placeholder="Briefly describe your case"></textarea>
+        </div>
+
+        <div class="form-group form-consent">
+          <label class="consent-label" style="display:flex; gap:0.5rem; align-items:flex-start; font-size:0.9rem;">
+            <input type="checkbox" id="form-consent" name="consent" required />
+            <span>I have read and accept the <a href="compliance.html#privacidad">Privacy Policy</a> and consent to the processing of my data to handle my request.</span>
+          </label>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn">
-          Send Dossier Request
+          Send request
         </button>
 
         <div class="form-notice">
-          🔒 Confidential data handling in full accordance with GDPR.
+          Controller: WOZTELL SANUKER S.L. · Rights: dpo@valnatir.com
         </div>
       </form>
     </div>

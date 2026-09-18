@@ -10,11 +10,6 @@
   <link rel="alternate" hreflang="en" href="https://valnatir.com/solution.html" />
   <link rel="alternate" hreflang="es" href="https://valnatir.com/es/solution.html" />
   
-  <link rel="preconnect" href="https://api.fontshare.com" />
-  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=cabinet-grotesk@500,700,800,900&f[]=jetbrains-mono@400,500&display=swap" rel="stylesheet" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css?v=3.2" />
 </head>
@@ -398,7 +393,7 @@
           Enterprise conversational governance for sensitive customer interactions.
         </p>
         <div class="partner-meta">
-          <span>Woztell Sanuker · Official Meta Solution Partner</span>
+          <span>Official Meta Solution Partner</span>
         </div>
       </div>
 
@@ -429,8 +424,9 @@
     <div class="container footer-bottom">
       <div class="footer-legal">
         <span>&copy; 2026 VALNATIR · All rights reserved.</span>
-        <span>Legal Notice</span>
-        <span>Privacy &amp; GDPR</span>
+        <a href="compliance.html#aviso-legal">Legal Notice</a>
+        <a href="compliance.html#privacidad">Privacy &amp; GDPR</a>
+        <a href="compliance.html#cookies">Cookies</a>
       </div>
       <div class="footer-governance">
         <span>Confidential · noindex, nofollow</span>
@@ -479,12 +475,23 @@
           <textarea id="form-case" rows="3" placeholder="e.g. Customer credit authorization or claims processing over WhatsApp without PII exposure"></textarea>
         </div>
 
+        <div class="form-group form-consent">
+          <label class="consent-label" style="display:flex; gap:0.5rem; align-items:flex-start; font-size:0.9rem;">
+            <input type="checkbox" id="form-consent" name="consent" required />
+            <span>I have read and accept the <a href="compliance.html#privacidad">Privacy Policy</a> and consent to the processing of my data to handle my request.</span>
+          </label>
+        </div>
+
         <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn">
           Request Scoped Pilot
         </button>
 
         <div class="form-notice">
           🔒 Zero app installation required · NDA guaranteed · Full GDPR &amp; ENS compliance.
+        </div>
+
+        <div class="form-notice" style="font-size:0.75rem; color:var(--text-faint); margin-top:10px; text-align:center;">
+          Controller: WOZTELL SANUKER S.L. · Rights: dpo@valnatir.com
         </div>
       </form>
     </div>
