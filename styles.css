@@ -2184,24 +2184,99 @@ div[id].section-container,
 }
 .client-card {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-md);
-  padding: 16px 18px;
+  padding: 10px 14px;
+  height: 76px;
   transition: var(--transition);
-  min-height: 96px;
   text-decoration: none;
   color: inherit;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
 .client-card:hover {
   border-color: var(--accent);
-  background: var(--surface-2);
+  background: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4), 0 0 18px rgba(95, 211, 184, 0.1);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35), 0 0 18px rgba(95, 211, 184, 0.25);
+}
+.client-card .client-logo-img {
+  max-width: 90%;
+  max-height: 44px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s ease;
+}
+.client-card:hover .client-logo-img {
+  transform: scale(1.05);
+}
+
+/* Optical scale adjustments for Enterprise logos */
+.client-logo-toyota {
+  max-width: 88% !important;
+  max-height: 26px !important;
+  width: auto !important;
+  height: auto !important;
+}
+.client-logo-lexus {
+  max-height: 48px !important;
+  max-width: 88% !important;
+  width: auto !important;
+  height: auto !important;
+}
+.client-logo-iwc {
+  max-height: 40px !important;
+  max-width: 86% !important;
+}
+.client-logo-hsbc {
+  max-height: 38px !important;
+  max-width: 86% !important;
+}
+.client-logo-standard-chartered {
+  max-height: 40px !important;
+  max-width: 86% !important;
+}
+.client-logo-mcdonalds {
+  max-height: 38px !important;
+}
+.client-logo-playstation {
+  max-height: 38px !important;
+}
+
+/* Optical scale adjustments for GovTech logos */
+.client-logo-guadalajara {
+  max-height: 44px !important;
+  max-width: 90% !important;
+}
+.client-logo-elx {
+  max-height: 52px !important;
+  max-width: 90% !important;
+}
+.client-logo-castello {
+  max-height: 44px !important;
+  max-width: 90% !important;
+}
+.client-logo-pacheco {
+  max-height: 44px !important;
+  max-width: 90% !important;
+}
+.client-logo-tierrasaltas {
+  max-height: 42px !important;
+  max-width: 90% !important;
+}
+.client-logo-mutriku {
+  max-height: 44px !important;
+  max-width: 90% !important;
+}
+.client-logo-beas {
+  max-height: 48px !important;
+  max-width: 90% !important;
 }
 .client-card-top {
   display: flex;
