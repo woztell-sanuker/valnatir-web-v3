@@ -12,6 +12,19 @@ prepare_site:
     - mkdir -p dist
     - cp ./*.html app.js styles.css sitemap.xml dist/
     - cp -R assets es dist/
+    - |
+      # Modo Review: SOLO en preproduction (dev). main/prod nunca lo incluyen.
+      if [ "$CI_COMMIT_BRANCH" = "dev" ]; then
+        mkdir -p dist/review
+        cp review/web-review-mode.js review/review-auth.js dist/review/
+        printf 'window.WEB_REVIEW_CONFIG={clientId:"%s",webhookUrl:"%s",projectName:"VALNATIR (preproduction)"};' \
+          "779317312558-o4c5ppj20nnh0dpjfme83g9m2gdfj732.apps.googleusercontent.com" \
+          "$VALNATIR_SHEETS_WEBHOOK" > dist/review/web-review-config.js
+        for f in dist/*.html dist/es/*.html; do
+          [ -f "$f" ] && sed -i 's#</body>#<script src="/review/web-review-config.js"></script><script src="/review/review-auth.js"></script><script src="/review/web-review-mode.js"></script></body>#' "$f"
+        done
+        echo "[review] Modo Review inyectado en preproduction (dev)"
+      fi
     - find dist -type f -print | sort
   artifacts:
     paths:
