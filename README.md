@@ -49,3 +49,11 @@ Official web platform for **VALNATIR**, the enterprise-grade conversational flig
     ├── canales.html
     └── about.html
 ```
+## CI/CD Environments
+
+- `dev` → preproduction
+- `main` → production
+
+## 🔒 Security & Privacy Notice
+
+This repository and site are confidential: `<meta name="robots" content="noindex, nofollow" />` is enforced across all endpoints. No personally identifiable information (PII) is exposed.
