@@ -1,0 +1,69 @@
+stages:
+  - prepare
+  - deploy
+
+prepare_site:
+  stage: prepare
+  image: alpine:3.20
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  script:
+    - mkdir -p dist
+    - cp ./*.html app.js styles.css sitemap.xml dist/
+    - cp -R assets es dist/
+    - find dist -type f -print | sort
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 hour
+
+.deploy:
+  stage: deploy
+  image:
+    name: amazon/aws-cli:2.36.49
+    entrypoint: [""]
+  needs:
+    - job: prepare_site
+      artifacts: true
+  script:
+    - |
+      : "${AWS_ACCESS_KEY_ID:?Missing AWS_ACCESS_KEY_ID}"
+      : "${AWS_SECRET_ACCESS_KEY:?Missing AWS_SECRET_ACCESS_KEY}"
+      : "${AWS_DEFAULT_REGION:?Missing AWS_DEFAULT_REGION}"
+      : "${DEPLOY_BUCKET:?Missing deployment bucket}"
+      : "${CLOUDFRONT_DISTRIBUTION_ID:?Missing CloudFront distribution ID}"
+    - aws sts get-caller-identity
+    - aws s3 sync dist/ "s3://${DEPLOY_BUCKET}/" --delete --cache-control "public,max-age=86400"
+    - |
+      aws s3 cp dist/ "s3://${DEPLOY_BUCKET}/" \
+        --recursive \
+        --exclude "*" \
+        --include "*.html" \
+        --include "*.xml" \
+        --include "*.css" \
+        --include "*.js" \
+        --cache-control "no-cache,no-store,must-revalidate"
+    - aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths "/*"
+
+deploy_dev:
+  extends: .deploy
+  variables:
+    DEPLOY_BUCKET: "$S3_DEV_BUCKET"
+    CLOUDFRONT_DISTRIBUTION_ID: "$CLOUDFRONT_DEV_DISTRIBUTION_ID"
+  environment:
+    name: preproduction
+    url: "$DEV_URL"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'
+
+deploy_prod:
+  extends: .deploy
+  variables:
+    DEPLOY_BUCKET: "$S3_PROD_BUCKET"
+    CLOUDFRONT_DISTRIBUTION_ID: "$CLOUDFRONT_PROD_DISTRIBUTION_ID"
+  environment:
+    name: production
+    url: "$PROD_URL"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
