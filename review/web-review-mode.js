@@ -21,9 +21,16 @@
 
   // Configuración personalizable mediante window.WEB_REVIEW_CONFIG
   const userConfig = window.WEB_REVIEW_CONFIG || {};
+  // Seguridad: si la config viene inyectada (CI), el webhook queda BLOQUEADO
+  // (ni ?webhook= ni localStorage pueden redirigir la nota y el ID token).
+  const WEBHOOK_LOCKED = !!(userConfig.webhookUrl && String(userConfig.webhookUrl).trim());
+  function isAllowedWebhook(u) {
+    try { return new URL(String(u)).host === 'script.google.com'; } catch (e) { return false; }
+  }
   const CONFIG = {
     projectName: userConfig.projectName || document.title || window.location.hostname || 'Web Project',
-    webhookUrl: userConfig.webhookUrl || localStorage.getItem('review_sheets_webhook') || '',
+    webhookUrl: WEBHOOK_LOCKED ? userConfig.webhookUrl.trim()
+      : (isAllowedWebhook(localStorage.getItem('review_sheets_webhook')) ? localStorage.getItem('review_sheets_webhook') : ''),
     brandColor: userConfig.brandColor || '#5FD3B8',
     storagePrefix: userConfig.storagePrefix || 'web_review_',
     categories: userConfig.categories || [
@@ -50,7 +57,7 @@
   const isReviewUrl = urlParams.has('review') || urlParams.get('mode') === 'review';
   const isStoredActive = localStorage.getItem(STORAGE_KEYS.active) === 'true';
 
-  if (urlParams.has('webhook')) {
+  if (urlParams.has('webhook') && !WEBHOOK_LOCKED && isAllowedWebhook(urlParams.get('webhook'))) {
     localStorage.setItem(STORAGE_KEYS.webhook, urlParams.get('webhook'));
     CONFIG.webhookUrl = urlParams.get('webhook');
   }
@@ -162,11 +169,19 @@
   }
 
   function getWebhookUrl() {
-    return localStorage.getItem(STORAGE_KEYS.webhook) || CONFIG.webhookUrl || '';
+    if (WEBHOOK_LOCKED) return CONFIG.webhookUrl;
+    const stored = localStorage.getItem(STORAGE_KEYS.webhook);
+    if (isAllowedWebhook(stored)) return stored;
+    return isAllowedWebhook(CONFIG.webhookUrl) ? CONFIG.webhookUrl : '';
   }
 
   function setWebhookUrl(url) {
+    if (WEBHOOK_LOCKED) return; // config inyectada: no se puede cambiar desde el cliente
     if (url && url.trim()) {
+      if (!isAllowedWebhook(url.trim())) {
+        console.warn('[WebReview] Webhook rechazado: solo se admite https://script.google.com/…');
+        return;
+      }
       localStorage.setItem(STORAGE_KEYS.webhook, url.trim());
       CONFIG.webhookUrl = url.trim();
     } else {
@@ -1114,9 +1129,9 @@
         </h3>
 
         <label class="wr-label">Webhook de Google Sheets (Apps Script)</label>
-        <input class="wr-input" id="wr-cfg-webhook" value="${escapeHtml(getWebhookUrl())}" placeholder="https://script.google.com/macros/s/.../exec" />
+        <input class="wr-input" id="wr-cfg-webhook" value="${escapeHtml(getWebhookUrl())}" placeholder="https://script.google.com/macros/s/.../exec" ${WEBHOOK_LOCKED ? 'readonly' : ''} />
         <small style="display:block; color:#8C96A5; margin-top:4px; font-size:11px;">
-          Pega la URL de tu Web App desplegada en Google Apps Script.
+          ${WEBHOOK_LOCKED ? 'Webhook fijado por el despliegue (no editable).' : 'Pega la URL de tu Web App desplegada en Google Apps Script.'}
         </small>
 
         <label class="wr-label">Nombre del Revisor Habitual</label>
