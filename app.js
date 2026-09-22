@@ -564,6 +564,24 @@ function initModal() {
   });
 }
 
+// Envío de leads al webhook inyectado por CI (Apps Script "VALNATIR Leads").
+// Sin webhook configurado NO se simula el éxito: se avisa en consola y el
+// formulario muestra el correo de contacto.
+function sendLead(payload, onDone) {
+  const endpoint = window.VALNATIR_LEADS_WEBHOOK || '';
+  if (!endpoint) {
+    console.warn('[Leads] VALNATIR_LEADS_WEBHOOK no configurado; el formulario no se ha enviado.');
+    if (onDone) onDone(false);
+    return;
+  }
+  payload.hp = document.getElementById('lead-hp')?.value || '';
+  payload.elapsed_ms = Math.round(performance.now());
+  fetch(endpoint, { method: 'POST', body: JSON.stringify(payload), mode: 'no-cors' })
+    .then(() => { if (onDone) onDone(true); })
+    .catch((err) => { console.warn('[Leads] Error de envío:', err); if (onDone) onDone(false); });
+}
+window.sendLead = sendLead;
+
 function handleFormSubmit(e) {
   e.preventDefault();
   const submitBtn = document.getElementById('submit-btn');
@@ -584,6 +602,7 @@ function handleFormSubmit(e) {
 
   // Trazabilidad y demostrabilidad del consentimiento (RGPD Art. 7.1)
   const payload = {
+    form: 'pilot',
     name: document.getElementById('form-name')?.value || '',
     email: document.getElementById('form-email')?.value || '',
     company: document.getElementById('form-company')?.value || '',
@@ -621,24 +640,15 @@ function handleFormSubmit(e) {
     }
   };
 
-  const leadsWebhook = window.VALNATIR_LEADS_WEBHOOK || localStorage.getItem('valnatir_leads_webhook');
-  if (leadsWebhook) {
-    fetch(leadsWebhook, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      mode: 'no-cors'
-    })
-    .then(() => {
-      showSuccessModal();
-    })
-    .catch((err) => {
-      console.warn('Leads webhook dispatch warning:', err);
-      showSuccessModal();
-    });
-  } else {
-    setTimeout(showSuccessModal, 700);
-  }
+  const showFailureNotice = () => {
+    submitBtn.disabled = false;
+    submitBtn.innerText = isSpanish ? 'Solicitar Sandbox Piloto' : 'Request Pilot Sandbox';
+    alert(isSpanish
+      ? 'No hemos podido registrar tu solicitud. Escríbenos a info@valnatir.com y te atenderemos.'
+      : 'We could not register your request. Please email info@valnatir.com and we will get back to you.');
+  };
+
+  sendLead(payload, (ok) => (ok ? showSuccessModal() : showFailureNotice()));
 }
 window.handleFormSubmit = handleFormSubmit;
 

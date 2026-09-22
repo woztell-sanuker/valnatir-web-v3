@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Programa de Partners & Canal · VALNATIR | Mensajería Conversacional con IA Gobernada</title>
   <meta name="description" content="Multiplica la facturación de tu consultora o ISV. Desbloquea el negocio de WhatsApp e IA generativa en clientes regulados con gobernanza activa, certificación ENS Media y hasta 30% de revenue share recurrente." />
-  <meta name="robots" content="noindex, nofollow" />
 
   <!-- FontShare Fonts -->
 
@@ -368,6 +367,7 @@
         <div class="partner-split-form">
           <h3 style="margin-top: 0;">Formulario de Postulación de Canal</h3>
           <form id="partner-apply-form" onsubmit="handlePartnerSubmit(event)">
+        <div class="lead-hp" aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"><label>Fax <input type="text" id="lead-hp" name="fax" tabindex="-1" autocomplete="off" /></label></div>
             <div class="form-row-2">
               <div class="form-group">
                 <label for="p-name">NOMBRE Y APELLIDOS *</label>
@@ -451,7 +451,14 @@
               <textarea id="p-notes" rows="3" placeholder="Cuéntanos si tienes un proyecto en curso o requerimientos técnicos a resolver..." style="width: 100%; background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px; color: var(--text-primary); font-family: inherit; font-size: 0.95rem; resize: vertical;"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 12px;">
+            <div class="form-group form-consent">
+              <label class="consent-label" style="display:flex; gap:0.5rem; align-items:flex-start; font-size:0.9rem;">
+                <input type="checkbox" id="p-consent" name="consent" required />
+                <span>He leído y acepto la <a href="compliance.html#privacidad">Política de Privacidad</a> y consiento el tratamiento de mis datos para atender mi solicitud.</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="p-submit" style="margin-top: 12px;">
               Solicitar Acceso al Canal &rarr;
             </button>
             
@@ -526,6 +533,8 @@
           <a href="compliance.html#aviso-legal">Aviso Legal</a>
           <span>&middot;</span>
           <a href="compliance.html#privacidad">Privacidad</a>
+        <span>&middot;</span>
+          <a href="transparency.html">IA y autoría</a>
         </div>
       </div>
     </div>
@@ -535,8 +544,29 @@
   <script>
     function handlePartnerSubmit(e) {
       e.preventDefault();
-      document.getElementById('partner-apply-form').style.display = 'none';
-      document.getElementById('partner-success-msg').style.display = 'block';
+      var v = function (id) { var el = document.getElementById(id); return el ? el.value : ''; };
+      var consent = document.getElementById('p-consent');
+      if (consent && !consent.checked) { alert('Debes aceptar la Política de Privacidad para continuar.'); consent.focus(); return; }
+      var btn = document.getElementById('p-submit');
+      if (btn) { btn.disabled = true; btn.innerText = 'Enviando...'; }
+      var payload = {
+        form: 'partner',
+        name: v('p-name'), email: v('p-email'), company: v('p-company'), website: v('p-website'),
+        country: v('p-country'), phone: v('p-phone'), type: v('p-type'), focus: v('p-focus'), notes: v('p-notes'),
+        consent: !!(consent && consent.checked), consent_timestamp: new Date().toISOString(),
+        consent_text_version: '2026-09-22-partner-v1',
+        consent_text: 'He leído y acepto la Política de Privacidad y consiento el tratamiento de mis datos para atender mi solicitud.',
+        page_url: window.location.href, lang: 'es'
+      };
+      window.sendLead(payload, function (ok) {
+        if (ok) {
+          document.getElementById('partner-apply-form').style.display = 'none';
+          document.getElementById('partner-success-msg').style.display = 'block';
+        } else {
+          if (btn) { btn.disabled = false; btn.innerText = 'Solicitar Acceso al Canal →'; }
+          alert('No hemos podido registrar tu solicitud. Escríbenos a partners@valnatir.com.');
+        }
+      });
     }
   </script>
 </body>

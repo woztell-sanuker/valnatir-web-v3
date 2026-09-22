@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Partner Program &amp; Channel · VALNATIR | Governed Conversational AI Messaging</title>
   <meta name="description" content="Multiply ARR and services margin for your consultancy or ISV. Unlock enterprise WhatsApp and generative AI in regulated clients with in-flight governance, ENS Media compliance, and up to 30% recurring revenue share." />
-  <meta name="robots" content="noindex, nofollow" />
 
   <!-- FontShare Fonts -->
 
@@ -368,6 +367,7 @@
         <div class="partner-split-form">
           <h3 style="margin-top: 0;">Partner Channel Application Form</h3>
           <form id="partner-apply-form" onsubmit="handlePartnerSubmit(event)">
+        <div class="lead-hp" aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"><label>Fax <input type="text" id="lead-hp" name="fax" tabindex="-1" autocomplete="off" /></label></div>
             <div class="form-row-2">
               <div class="form-group">
                 <label for="p-name">FULL NAME *</label>
@@ -451,7 +451,14 @@
               <textarea id="p-notes" rows="3" placeholder="Tell us about active deals or compliance requirements you need to unlock..." style="width: 100%; background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px; color: var(--text-primary); font-family: inherit; font-size: 0.95rem; resize: vertical;"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 12px;">
+            <div class="form-group form-consent">
+              <label class="consent-label" style="display:flex; gap:0.5rem; align-items:flex-start; font-size:0.9rem;">
+                <input type="checkbox" id="p-consent" name="consent" required />
+                <span>I have read and accept the <a href="compliance.html#privacidad">Privacy Policy</a> and consent to the processing of my data to handle my request.</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="p-submit" style="margin-top: 12px;">
               Apply for Partner Access &rarr;
             </button>
             
@@ -523,9 +530,11 @@
       <div class="footer-bottom">
         <div>&copy; 2026 VALNATIR. All rights reserved.</div>
         <div class="footer-legal">
-          <a href="compliance.html#legal-notice">Legal Notice</a>
+          <a href="compliance.html#aviso-legal">Legal Notice</a>
           <span>&middot;</span>
-          <a href="compliance.html#privacy">Privacy Policy</a>
+          <a href="compliance.html#privacidad">Privacy Policy</a>
+        <span>&middot;</span>
+          <a href="transparency.html">AI &amp; Authorship</a>
         </div>
       </div>
     </div>
@@ -535,8 +544,29 @@
   <script>
     function handlePartnerSubmit(e) {
       e.preventDefault();
-      document.getElementById('partner-apply-form').style.display = 'none';
-      document.getElementById('partner-success-msg').style.display = 'block';
+      var v = function (id) { var el = document.getElementById(id); return el ? el.value : ''; };
+      var consent = document.getElementById('p-consent');
+      if (consent && !consent.checked) { alert('You must accept the Privacy Policy to proceed.'); consent.focus(); return; }
+      var btn = document.getElementById('p-submit');
+      if (btn) { btn.disabled = true; btn.innerText = 'Sending...'; }
+      var payload = {
+        form: 'partner',
+        name: v('p-name'), email: v('p-email'), company: v('p-company'), website: v('p-website'),
+        country: v('p-country'), phone: v('p-phone'), type: v('p-type'), focus: v('p-focus'), notes: v('p-notes'),
+        consent: !!(consent && consent.checked), consent_timestamp: new Date().toISOString(),
+        consent_text_version: '2026-09-22-partner-v1',
+        consent_text: 'I have read and accept the Privacy Policy and consent to the processing of my data to handle my request.',
+        page_url: window.location.href, lang: 'en'
+      };
+      window.sendLead(payload, function (ok) {
+        if (ok) {
+          document.getElementById('partner-apply-form').style.display = 'none';
+          document.getElementById('partner-success-msg').style.display = 'block';
+        } else {
+          if (btn) { btn.disabled = false; btn.innerText = 'Apply for Partner Access →'; }
+          alert('We could not register your application. Please email partners@valnatir.com.');
+        }
+      });
     }
   </script>
 </body>
