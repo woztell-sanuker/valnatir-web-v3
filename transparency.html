@@ -3,10 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Academic Chair &amp; Scientific Research · VALNATIR</title>
-  
+  <title>AI, Authorship &amp; Transparency · VALNATIR</title>
+
+  <!-- Canonical & Alternate Hreflang -->
+  <link rel="alternate" hreflang="en" href="https://valnatir.com/compliance.html" />
+  <link rel="alternate" hreflang="es" href="https://valnatir.com/es/compliance.html" />
 
   <link rel="stylesheet" href="styles.css?v=3.6" />
+  <style>
+    .legal-doc { max-width: 820px; margin: 0 auto; }
+    .legal-doc h2.section-h2 { margin: 2.2rem 0 0.6rem; }
+    .legal-doc p { margin: 0 0 1rem; line-height: 1.7; }
+    .legal-doc a { color: inherit; }
+  </style>
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -16,7 +25,7 @@
     <div class="container top-bar-content">
       <span class="pulse-dot"></span>
       <span class="top-bar-text">CIBEC 2023 PhD Thesis scientific foundation: <strong>Govern the conversation, not the channel</strong></span>
-      <a href="catedra.html" class="top-bar-link active">Academic Research &rarr;</a>
+      <a href="catedra.html" class="top-bar-link">Explore research &rarr;</a>
     </div>
   </div>
 
@@ -43,7 +52,6 @@
       </a>
 
       <nav class="main-nav" id="main-nav">
-        <!-- 1. SOLUTION (Dropdown) -->
         <div class="nav-item-dropdown" data-dropdown="solution">
           <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
             Solution <svg class="dropdown-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -64,7 +72,6 @@
           </div>
         </div>
 
-        <!-- 2. INDUSTRIES (Dropdown) -->
         <div class="nav-item-dropdown" data-dropdown="industries">
           <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
             Industries <svg class="dropdown-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -89,16 +96,10 @@
           </div>
         </div>
 
-        <!-- 3. COMPLIANCE (Direct link) -->
         <a href="compliance.html" class="nav-link">Compliance</a>
-
-        <!-- 4. RESEARCH (Direct link) -->
-        <a href="catedra.html" class="nav-link active">Research</a>
-
-        <!-- 5. PRICING (Direct link) -->
+        <a href="catedra.html" class="nav-link">Research</a>
         <a href="pricing.html" class="nav-link">Pricing</a>
 
-        <!-- 6. ABOUT US (Dropdown) -->
         <div class="nav-item-dropdown" data-dropdown="about">
           <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
             About Us <svg class="dropdown-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -117,13 +118,11 @@
       </nav>
 
       <div class="header-actions">
-        <!-- Language Switcher -->
         <div class="lang-switcher" aria-label="Language Selector">
-          <a href="catedra.html" class="lang-link active" data-lang="en">EN</a>
-          <a href="es/catedra.html" class="lang-link" data-lang="es">ES</a>
+          <a href="transparency.html" class="lang-link active" data-lang="en">EN</a>
+          <a href="es/transparency.html" class="lang-link" data-lang="es">ES</a>
         </div>
-
-        <button class="btn btn-primary" onclick="openModal('Catedra Research')">Unlock a Workflow</button>
+        <button class="btn btn-primary" onclick="openModal('Legal')">Unlock a Workflow</button>
       </div>
 
       <button class="mobile-toggle" id="mobile-toggle" aria-label="Open menu">
@@ -132,116 +131,30 @@
     </div>
   </header>
 
-  <section class="hero-section" id="catedra" style="padding: 70px 0 60px;">
+  <section class="hero-section" id="top" style="padding: 70px 0 40px;">
     <div class="hero-radial-glow"></div>
     <div class="container hero-container">
-      <div class="eyebrow-wrapper">
-        <span class="badge-kicker">ACADEMIC AUTHORITY &amp; SCIENTIFIC METHOD</span>
-      </div>
-      <h1 class="hero-title active">
-        The science behind conversational governance.<br />
-        <span class="text-gradient">Conversational Business Academic Chair (CBC-UV).</span>
-      </h1>
-      <p class="hero-subhead">
-        VALNATIR is grounded in years of applied scientific research in partnership with the University of Valencia. The CIBEC 2023 PhD Thesis establishes the theoretical framework, structural risks, and canonical definition of managed corporate communication.
-      </p>
+      <div class="eyebrow-wrapper"><span class="badge-kicker">TRANSPARENCY &middot; AI &amp; AUTHORSHIP</span></div>
+      <h1 class="hero-title active">AI, Authorship &amp; Transparency</h1>
+      <p class="hero-subhead">How this site was made, who is behind it, and the status of its content.</p>
     </div>
   </section>
 
-  <!-- Chair Quote & Direction -->
-  <section class="section-container bg-surface-alt">
+  <section class="section-container" id="ai-authorship">
     <div class="container">
-      <div class="catedra-box" style="margin-bottom: 56px;">
-        <div class="catedra-badge">CANONICAL SCIENTIFIC ATTRIBUTION</div>
-        <h3 class="catedra-title">Academic Chair Leadership</h3>
-        <p class="catedra-desc">
-          Under the academic direction of José Pérez, the CBC-UV Chair investigates the economic, legal, and cryptographic impact of instant messaging platforms across European organizations.
-        </p>
-        <div class="catedra-quote">
-          <blockquote>
-            «Organizations are already conducting critical conversations over consumer messaging channels, executing transactions through them, and running core business processes within them, with or without permission. If the conversation sustaining these three things travels over a messaging channel, that channel is a mission-critical system, not a marketing channel.»
-          </blockquote>
-          <cite>— D. José Pérez, Director of the Conversational Business Academic Chair (CBC-UV) · CIBEC 2023 Congress</cite>
-        </div>
-      </div>
+      <div class="legal-doc">
+        <span class="section-kicker text-accent">TRANSPARENCY</span>
 
-      <div class="section-header" style="margin-bottom: 40px;">
-        <span class="section-kicker text-accent">THE CIBEC 2023 PHD THESIS</span>
-        <h2 class="section-h2">The 9 Questions Answered by Scientific Research</h2>
-        <p class="section-lead">
-          The formal theoretical framework diagnosing why conventional telecom and archival approaches fail systematically in instant messaging environments.
-        </p>
-      </div>
+        <h2 class="section-h2">Use of artificial intelligence</h2>
+        <p>Part of the content and code of this website has been produced with the assistance of artificial-intelligence tools, under human direction and editorial control. WOZTELL SANUKER S.L. is responsible for the published content. Where an automated conversational assistant is offered, users are informed that they are interacting with an AI system, in line with Article 50 of Regulation (EU) 2024/1689 (AI Act).</p>
 
-      <div class="model-cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
-        <div class="model-card">
-          <div class="card-tag">Axis 01 · Usage Planes (§3)</div>
-          <h4 style="font-size: 1.15rem; margin-bottom: 10px;">What truly structures conversation risk?</h4>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">The strict operational segregation of three distinct planes: personal (BYOD), internal (employee-to-employee), and external (organization-to-client).</p>
-        </div>
+        <h2 class="section-h2">Human authorship and direction</h2>
+        <p>This website, and the platform it describes, are the result of sustained human work carried out over many months, following a proprietary methodological process with version control. Artificial intelligence is a tool: the conception, curation, judgment and final decisions are human. WOZTELL SANUKER S.L. holds and reserves the intellectual and industrial property rights over the original materials.</p>
 
-        <div class="model-card">
-          <div class="card-tag">Axis 02 · AI Governance (§4)</div>
-          <h4 style="font-size: 1.15rem; margin-bottom: 10px;">Who governs the AI that drafts and decides?</h4>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">Context boundary isolation and deterministic payload sanitization before any conversational prompt reaches external foundational LLM providers.</p>
-        </div>
+        <h2 class="section-h2">Content under review</h2>
+        <p>This site is undergoing continuous review. Its content is provided for information purposes only and does not constitute a binding offer, professional advice or a contractual commitment. It may contain errors, inaccuracies or provisional elements and may be updated without notice. To the extent permitted by law, WOZTELL SANUKER S.L. does not warrant the accuracy, completeness or currency of the content and disclaims liability for decisions taken on the basis of it. The binding terms of any service are set out in the corresponding agreement. This notice is without prejudice to the rights that applicable law grants to users and consumers.</p>
 
-        <div class="model-card">
-          <div class="card-tag">Axis 03 · In-Flight Interception (§5)</div>
-          <h4 style="font-size: 1.15rem; margin-bottom: 10px;">Where in the transmission chain can one intervene?</h4>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">At the flight control interception plane in the millisecond prior to delivery, superseding the structural futility of passive post-mortem archiving.</p>
-        </div>
-
-        <div class="model-card">
-          <div class="card-tag">Axis 04 · Regulatory Obligations (§3 &amp; §4.5)</div>
-          <h4 style="font-size: 1.15rem; margin-bottom: 10px;">What mandates reach chats on third-party channels?</h4>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">Achieving strict compliance with ENS High, DORA, GDPR, and NIS2 across commercial messaging without prohibiting everyday corporate tools.</p>
-        </div>
-
-        <div class="model-card">
-          <div class="card-tag">Axis 05 · Mission Critical Properties (§6.8 &amp; §7.2)</div>
-          <h4 style="font-size: 1.15rem; margin-bottom: 10px;">What does mission critical require that cannot be bought?</h4>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">Origin flight control, RFC 3161 Merkle-chained non-repudiation, and autonomous operational resilience against consumer carrier downtime.</p>
-        </div>
-
-        <div class="model-card">
-          <div class="card-tag">Axis 06 · Managed Conversational Communication (§6 &amp; §8)</div>
-          <h4 style="font-size: 1.15rem; margin-bottom: 10px;">What mechanism defines managed conversational communication?</h4>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">Transforming the conversation into a sovereign, governed data entity with its own state lifecycle, fully decoupled from the underlying carrier transport.</p>
-        </div>
-
-        <div class="model-card">
-          <div class="card-tag">Axis 07 · Operational Workflows (§7.3)</div>
-          <h4 style="font-size: 1.15rem; margin-bottom: 10px;">What do transactional workflows require to operate safely?</h4>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">A shared mediation architecture, on-demand sovereign ephemeral rooms, and deterministic handoff logic between automated bots and certified human agents.</p>
-        </div>
-
-        <div class="model-card">
-          <div class="card-tag">Axis 08 · Fluid Quality Platform (§7.4)</div>
-          <h4 style="font-size: 1.15rem; margin-bottom: 10px;">How can an organization safeguard conversation quality?</h4>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">Real-time lateral AI assistance, preventive semantic policy guardrails, and active institutional verification without invasive human eavesdropping.</p>
-        </div>
-
-        <div class="model-card">
-          <div class="card-tag">Axis 09 · Zero-Friction &amp; Strong Identity (§7.5 &amp; §8.6)</div>
-          <h4 style="font-size: 1.15rem; margin-bottom: 10px;">How do citizens connect smoothly until identity is needed?</h4>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">Zero friction access on ubiquitous apps seamlessly escalated to qualified cryptographic eIDAS authentication when formal transactions demand it.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-banner-section">
-    <div class="container">
-      <div class="cta-banner-inner">
-        <span class="cta-badge">ACADEMIC COLLABORATION</span>
-        <h2 class="cta-h2">Explore the complete CIBEC 2023 scientific documentation</h2>
-        <p class="cta-subhead">We share our research papers, formal risk taxonomies, and methodology with academic and enterprise compliance teams.</p>
-        <div class="cta-buttons">
-          <button class="btn btn-primary btn-lg" onclick="openModal('Academic Research Access')">Request Scientific Papers</button>
-          <a href="solution.html" class="btn btn-ghost btn-lg">View Technology Architecture &rarr;</a>
-        </div>
+        <p style="margin-top:2rem;">See also the <a href="compliance.html#aviso-legal">Legal Notice</a> and the <a href="compliance.html#privacidad">Privacy Policy</a>. Contact: dpo@valnatir.com &middot; info@valnatir.com.</p>
       </div>
     </div>
   </section>
@@ -270,7 +183,7 @@
         <h5>Platform</h5>
         <a href="solution.html">Flight Control</a>
         <a href="ia.html">AI &amp; Anonymization</a>
-        <a href="compliance.html">ENS Media Scheme</a>
+        <a href="compliance.html">Compliance</a>
       </div>
 
       <div class="footer-nav-col">
@@ -279,7 +192,7 @@
         <a href="industries-govtech.html">Govtech &amp; Local</a>
         <a href="industries-defensa.html">Defense &amp; Public Safety</a>
         <a href="become-a-partner.html">Partner Program</a>
-            <a href="pricing.html">Pricing Models</a>
+        <a href="pricing.html">Pricing Models</a>
       </div>
 
       <div class="footer-nav-col">
@@ -293,9 +206,9 @@
     <div class="container footer-bottom">
       <div class="footer-legal">
         <span>&copy; 2026 VALNATIR · All rights reserved.</span>
-        <a href="compliance.html#aviso-legal">Legal Notice</a>
-        <a href="compliance.html#privacidad">Privacy &amp; GDPR</a>
-        <a href="compliance.html#cookies">Cookies</a>
+        <a href="#aviso-legal" style="color: inherit; text-decoration: none;">Legal Notice</a>
+        <a href="#privacidad" style="color: inherit; text-decoration: none;">Privacy &amp; GDPR</a>
+        <a href="#cookies" style="color: inherit; text-decoration: none;">Cookies</a>
       <span>&middot;</span>
           <a href="transparency.html">AI &amp; Authorship</a>
         </div>
@@ -306,31 +219,31 @@
     <div class="modal-window">
       <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
       <div class="modal-header">
-        <span class="badge-kicker text-accent">RESEARCH ACCESS</span>
-        <h3>Request Research Documentation</h3>
-        <p>Access the complete CIBEC 2023 PhD Thesis, governance models, and methodology papers.</p>
+        <span class="badge-kicker text-accent">CONTACT</span>
+        <h3>Talk to an architect</h3>
+        <p>Tell us about your case and we will get back to you.</p>
       </div>
 
       <form class="modal-form" id="pilot-form" onsubmit="handleFormSubmit(event)">
         <div class="lead-hp" aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"><label>Fax <input type="text" id="lead-hp" name="fax" tabindex="-1" autocomplete="off" /></label></div>
         <div class="form-group">
           <label for="form-name">Full Name</label>
-          <input type="text" id="form-name" required placeholder="e.g. Dr. Arthur Vance" />
+          <input type="text" id="form-name" required placeholder="e.g. Elena Rostova" />
         </div>
 
         <div class="form-group">
-          <label for="form-email">Academic or Institutional Email</label>
-          <input type="email" id="form-email" required placeholder="name@university.edu" />
+          <label for="form-email">Work Email</label>
+          <input type="email" id="form-email" required placeholder="name@organization.com" />
         </div>
 
         <div class="form-group">
-          <label for="form-sector">Institution / Organization</label>
-          <input type="text" id="form-sector" required placeholder="e.g. University / Research Institute / Enterprise Compliance" />
+          <label for="form-company">Organization</label>
+          <input type="text" id="form-company" required placeholder="Organization name" />
         </div>
 
         <div class="form-group">
-          <label for="form-case">Research area of interest</label>
-          <textarea id="form-case" rows="2" placeholder="e.g. Pre-LLM anonymization models or conversational chain-of-custody"></textarea>
+          <label for="form-case">Use case</label>
+          <textarea id="form-case" rows="3" placeholder="Briefly describe your case"></textarea>
         </div>
 
         <div class="form-group form-consent">
@@ -341,14 +254,10 @@
         </div>
 
         <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn">
-          Request Academic Papers
+          Send request
         </button>
 
         <div class="form-notice">
-          🔒 Handled in strict compliance with academic and GDPR regulations.
-        </div>
-
-        <div class="form-notice" style="font-size:0.75rem; color:var(--text-faint); margin-top:10px; text-align:center;">
           Controller: WOZTELL SANUKER S.L. · Rights: dpo@valnatir.com
         </div>
       </form>
